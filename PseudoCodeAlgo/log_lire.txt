@@ -1,0 +1,36 @@
+lire( String nomfichier) {
+
+	Init string *cible, *referrer, *heure;
+	String log = fonctionExtraction(nomfichier);
+	String ligne;
+	tant qu'il reste des caractères {
+		Si char != retour à la ligne) {
+			ligne = ligne+char;
+		}
+		analyseLigne(ligne);
+		
+		// On verifie que le referrer et la cible n'existent pas deja dans le tableau de correspondance
+		tant que page != vide {
+			boolean refexisteDeja, cibleexisteDeja = faux;
+			if(page[i][1] == referrer) {
+				refexisteDeja = vrai;
+			}
+			if(page[i][1] == cible) {
+				cibleexisteDeja = vrai;
+			}
+			page[i][1] == cible
+		}
+		if (refexisteDeja == false) {
+			correspondance[nbelements][1] = referrer;
+			correspondance[nbelements][2] = cible;
+		}
+		else if (cibleexisteDeja == false) {
+			correspondance[nbelements][2] = cible;
+		}
+		else if (refexisteDeja == false && cibleexisteDeja == false) {
+			correspondance[nbelements][1] = referrer;
+			correspondance[nbelements][2] = cible;
+		}
+	}
+
+}

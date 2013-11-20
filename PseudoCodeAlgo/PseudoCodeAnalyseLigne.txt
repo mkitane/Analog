@@ -1,0 +1,74 @@
+analyseLigne(String ligne) {
+	String cible, referrer;
+	int heure
+	String cible = "adresse intranet"
+	tant qu'il reste des caractères {
+		Si (char == ":")
+			heure = parseInt(concat(char+1, char+2)
+		Sinon si char == "\""
+			tant qu'il reste des caractères
+				si char == "/"
+					cible = cible + char 
+				
+	}
+}
+
+
+
+
+
+
+Debut Methode analyseLigne(String ligne, *cible, *referer,*heure)
+	Static string UrlLocale = "http://intranet-if.insa-lyon.fr"
+	Static int sizeUrlLocale = size(UrlLocale)
+	
+	//Initialisation string cible, referrer
+	Initialisation int heure, nombreOccurenceGuillemetsOuverts
+
+	Pour le premier au dernier caractere de ligne
+		Si caractere == ':'
+			Si caractere n+1 et n+2 sont des chiffres
+				On recupere les deux prochaines lettres
+			FinSi
+		FinSi
+		
+		Si Caractere = guillemets &&  nombreOccurenceGuillemetsOuverts = 0
+		
+			Cree une boucle  pour chercher "/"
+				Si caractere = "/"
+				int DebutUrl = nombre
+				Cree une boucle pour chercher espace
+					si caractere = espace
+						int finUrl = nombre
+						cible = caractere DebutUrl jusqua FinUrl
+					finSI
+				finSI
+			FinBoucle
+				
+				
+			Cree une boucle de finURl jusqua trouver finGuillemets			
+			i = Fin Guillemets
+			
+			nombreOccurenceGuillemetsOuverts++
+		Finsi
+		
+		Si Caractere = guillemets && nombreOccurenceGuillemetsOuverts = 1
+			Cree une boucle pour chercher la fin des guillemets
+			int finGuillemets = nombre; 
+			
+			Si Referer commence par UrlLocale alors
+				Referer = caractere (i+sizeUrlLocale) jusqua caractreFinGuillements;
+			Sinon
+				Referer = caractere i jusqua caractere FinGuillements
+			Finsi
+			
+			
+						
+			i=FinGuillemets
+			
+			nombreOccurenceGuillemetsOuverts++
+			Quitte la fonction, plus rien a faire.
+		Finsi	
+	
+	finPour
+
