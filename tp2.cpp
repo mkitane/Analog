@@ -7,10 +7,14 @@
 //============================================================================
 
 #include <iostream>
+#include <map>
 using namespace std;
 
 bool analyseLigne (string ligne, string *cible, string *referer, int *heure);
 int chercherGuillemetsFermants(string l, int posDebut);
+void genereGraphViz(map<string,string> a, char* index);
+
+
 
 bool optionExists(char** debut,char **fin, const string nomOption){
 	return  0;
@@ -244,3 +248,10 @@ int chercherGuillemetsFermants(string l, int posDebut){
 }
 
 
+void genereGraphViz(map<string,string> a, char* index){
+	string phrase = "digraph {";
+	phrase += "\n";
+
+
+	//PSEUDOCODE
+}

@@ -1,0 +1,27 @@
+Debut Fonction GenererGraph(Prend en parametre Structure de données et Index)
+
+	//Normalement le tableau Index contient toutes les pages
+	//Premier Tableau Referer
+	//Tableau Incruste Cible
+	//Nb de fois Somme du tableau Heure
+	
+	On ecrit dans le fichier .dot "digraph { \n"
+	
+		
+	Pour le premier au dernier element du tableau Index
+		EcrireFichier(node + iemeElementTableau [label="tableauIndex[i]"]; \n)
+	Fin Pour
+	
+	Pour le premier au dernier element de map Referer
+		Pour le premier au dernier element de map cible
+			EcrireFichier(node);
+			EcrireFichier(nomElementDansmapReferer);
+			EcrireFichier(" -> node);
+			EcrireFichier(nomElementDansmapCible);
+			EcrireFichier(" [label=\"");
+			EcrireFichier(SommeTableauHeurePourCetteCible);
+			EcrireFichier("\"]; \n");
+	Fin Pour
+	
+	EcrireFichier("}");
+Fin Fonction
