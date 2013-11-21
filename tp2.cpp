@@ -25,6 +25,7 @@ string getOption(char** debut,char **fin, const string nomOption){
 }
 //http://stackoverflow.com/questions/865668/parse-command-line-arguments
 int main( int argc, char* argv[] ){
+
 	/*
 	string nomFichier;
 	string nomGraph;
@@ -54,37 +55,45 @@ int main( int argc, char* argv[] ){
 	//faire default
 
 
-
-
+	*/
 
 
 	//METHODE 2
+	// VOIR SI IL FAUT GERER LES ERREURS !
+	string nomFichier;
+	string nomGraph;
+	int nbHits;
+	int heure;
+
+
 	bool argg=false;
 	bool argl=false;
 	bool argx=false;
 	bool argt=false;
 
 	for(int i=1; argv[i] ;i++){
-
-		if(argv[i] == "-g"){
+		cout<< "argument"<< i << " <"<< argv[i]<<">" << endl;
+		if( string(argv[i]).compare("-g") == 0){
 			argg=true;
 			nomGraph = argv[i+1];
 			i++;
 		}
 
-		if(argv[i] == "-l"){
+		if( string(argv[i]).compare("-l") == 0){
 			argl=true;
-			nbHits = argv[i+1];
+			char* end;
+			nbHits = strtol(argv[i+1],&end,10);
 			i++;
 		}
 
-		if(argv[i] == "-x"){
+		if( string(argv[i]).compare("-x") == 0){
 			argx=true;
 		}
 
-		if(argv[i] == "-t"){
+		if( string(argv[i]).compare("-t") == 0){
 			argt=true;
-			heure = argv[i+1];
+			char* end;
+			heure = strtol(argv[i+1],&end,10);
 			i++;
 		}
 
@@ -92,7 +101,28 @@ int main( int argc, char* argv[] ){
 			nomFichier = argv[i];
 		}
 	}
-	*/
+
+	//faire default
+
+	cout << "Il y a " << argc << "arguments" << endl;
+	if(argg){
+		cout<<"Option -g activee, Il ya bien un graph a creer dans le fichier :" << nomGraph << endl;
+	}
+	if(argl){
+		cout<<"Option -l activee, Le nombre de hits demande est :" << nbHits << endl;
+	}
+	if(argx){
+		cout << "Option -x activee" << endl;
+	}
+	if(argt){
+		cout << "Option -t activee, Intervalle a prendre : " << heure << endl;
+	}
+
+	cout << "Le nom du fichier est :" << nomFichier << endl;
+
+
+
+	/*
 	string trucBase = "192.168.0.0 - - [08/Sep/2012:11:16:02 +0200] \"Get /temps/4IF16.html HTTP/1.1\" 200 12106 \"http://intranet-if.insa-lyon.fr/temps/4IF15.html\" MOZILLA";
 	string cible ;
 	string referer;
@@ -107,8 +137,19 @@ int main( int argc, char* argv[] ){
 	trucBase = "192.168.0.0 - - [08/Sep/2012:15:16:02 +0200] \"Get /temps.html HTTP/1.1\" 200 12106 \"http://google.fr/temps/4IF19.html\" MOZILLA";
 	cout<<trucBase<<endl;
 	analyseLigne(trucBase,&cible, &referer, &heure);
+
+	*/
 	return 0;
 }
+
+
+
+
+
+
+
+
+
 
 
 bool analyseLigne (string ligne, string *cible, string *referer, int *heure){
