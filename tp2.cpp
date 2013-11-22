@@ -8,6 +8,9 @@
 
 #include <iostream>
 #include <map>
+#include <vector>
+#include <stdlib.h>     /* strtol */
+
 using namespace std;
 
 bool analyseLigne (string ligne, string *cible, string *referer, int *heure);
@@ -159,14 +162,14 @@ int main( int argc, char* argv[] ){
 bool analyseLigne (string ligne, string *cible, string *referer, int *heure){
 //bool analyseLigne(){
 	static string urlLocale = "http://intranet-if.insa-lyon.fr";
-	static int sizeUrlLocale = urlLocale.length();
+	static size_t sizeUrlLocale = urlLocale.length();
 
 	//cout<< UrlLocale << endl;
 	//cout << SizeUrlLocale << endl;
 
 	int nombreOccurenceGuillemets = 0;
 
-	for(int i=0; i< ligne.length() ; i++){
+	for(size_t i=0; i< ligne.length() ; i++){
 		 if( ligne.at(i) ==':'){
 			 if( (i+2)<sizeUrlLocale){
 				 char* end;
@@ -182,12 +185,12 @@ bool analyseLigne (string ligne, string *cible, string *referer, int *heure){
 
 
 			//On cherche le / symbolisant le debut de ladresse
-			for(int j=i; j<ligne.length();j++){
+			for(size_t j=i; j<ligne.length();j++){
 				if(ligne.at(j) == '/'){
 					debut = j;
 
 					//on cherche lespace symbolisant la fin de ladresse
-					for(int k=j; k<ligne.length();k++){
+					for(size_t k=j; k<ligne.length();k++){
 						if(ligne.at(k) == ' '){
 							fin = k;
 
@@ -239,7 +242,7 @@ bool analyseLigne (string ligne, string *cible, string *referer, int *heure){
 
 
 int chercherGuillemetsFermants(string l, int posDebut){
-	for( int i=posDebut; i<l.length();i++){
+	for( size_t i=posDebut; i<l.length();i++){
 		if(l.at(i)== '"'){
 			return i;
 		}
@@ -248,10 +251,22 @@ int chercherGuillemetsFermants(string l, int posDebut){
 }
 
 
-void genereGraphViz(map<string,string> a, char* index){
+void genereGraphViz(map<int, map<int,int[24]> > arbre, vector<string> index){
+
+
 	string phrase = "digraph {";
 	phrase += "\n";
 
+
+
+	for(vector<string>::iterator it=index.begin(); it!=index.end(); ++it)
+	{
+	      //elemnt& el = *it;
+	      //process on el...
+
+
+
+	}
 
 	//PSEUDOCODE
 }
