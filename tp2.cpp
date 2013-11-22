@@ -7,8 +7,10 @@
 //============================================================================
 
 #include <iostream>
+#include <string>
 #include <map>
 #include <vector>
+#include <sstream>      // std::ostringstream
 #include <stdlib.h>     /* strtol */
 
 using namespace std;
@@ -16,6 +18,7 @@ using namespace std;
 bool analyseLigne (string ligne, string *cible, string *referer, int *heure);
 int chercherGuillemetsFermants(string l, int posDebut);
 void genereGraphViz(map<string,string> a, char* index);
+int sommeTableau(int tab[]);
 
 
 
@@ -126,6 +129,7 @@ int main( int argc, char* argv[] ){
 	}
 
 	cout << "Le nom du fichier est :" << nomFichier << endl;
+
 
 
 
@@ -254,19 +258,67 @@ int chercherGuillemetsFermants(string l, int posDebut){
 void genereGraphViz(map<int, map<int,int[24]> > arbre, vector<string> index){
 
 
-	string phrase = "digraph {";
-	phrase += "\n";
+	string phrase = "digraph {\n";
 
 
+	for (int i=0; i<index.size(); i++){
 
-	for(vector<string>::iterator it=index.begin(); it!=index.end(); ++it)
-	{
-	      //elemnt& el = *it;
-	      //process on el...
+		ostringstream convert;
 
+		convert << "node" << i << " [label=\"" << index.at(i) << "\"];" << endl ;
 
-
+		/**Methode C++11
+		phrase.append("node");
+		phrase.append(to_string(i));
+		phrase.append(" [label=\"");
+		phrase.append(index.at(i));
+		phrase.append("\"];\n");
+		*/
 	}
 
-	//PSEUDOCODE
+
+	  map<int, map<int,int[24]> >::iterator it; //Création d'un itérator sur le 'map'
+
+	  for(it = arbre.begin(); it != arbre.end(); it++)
+	  {
+	    //int id = it->first;
+	    map<int,int[24]> sousarbre = it->second;
+
+	    map<int,int[24]>::iterator it2;
+
+	    for( it2 = sousarbre.begin(); it2 != sousarbre.end() ; it2++){
+	    	phrase.append("node");
+
+	    	ostringstream convert;
+	    	convert << it->first << " -> node" << it2->first ;
+	    	convert << " [label=\"" << sommeTableau(it2->second) << "\"];" << endl;
+
+	    	phrase.append(convert.str());
+
+
+
+	    	/*
+	    	//Methode En C++11
+	    	phrase.append(string::to_string(it->first));
+	    	phrase.append(" -> node");
+	    	phrase.append(string::to_string(it2->first));
+	    	phrase.append(" [label=\"");
+	    	phrase.append(string::to_string(sommeTableau(it2->second)));
+	    	phrase.append("\"];\n");
+	   	   */
+	    }
+
+	  }
+
+	  phrase.append("}");
+}
+
+int sommeTableau(int tab[]){
+	int somme = 0;
+
+	for(int i=0;i< (sizeof(tab) / sizeof(int)) ; i++){
+		somme += tab[i] ;
+	}
+
+	return somme;
 }
