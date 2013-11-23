@@ -12,14 +12,9 @@
 #include <vector>
 #include <sstream>      // std::ostringstream
 #include <stdlib.h>     /* strtol */
+#include <ostream>
 
 using namespace std;
-
-bool analyseLigne (string ligne, string *cible, string *referer, int *heure);
-int chercherGuillemetsFermants(string l, int posDebut);
-void genereGraphViz(map<string,string> a, char* index);
-int sommeTableau(int tab[]);
-
 
 
 bool optionExists(char** debut,char **fin, const string nomOption){
@@ -34,6 +29,7 @@ string getOption(char** debut,char **fin, const string nomOption){
 	return "test";
 }
 //http://stackoverflow.com/questions/865668/parse-command-line-arguments
+/*
 int main( int argc, char* argv[] ){
 
 	/*
@@ -67,7 +63,7 @@ int main( int argc, char* argv[] ){
 
 	*/
 
-
+/*
 	//METHODE 2
 	// VOIR SI IL FAUT GERER LES ERREURS !
 	string nomFichier;
@@ -150,175 +146,13 @@ int main( int argc, char* argv[] ){
 	analyseLigne(trucBase,&cible, &referer, &heure);
 
 	*/
+/*
 	return 0;
 }
+*/
 
 
 
 
 
 
-
-
-
-
-
-bool analyseLigne (string ligne, string *cible, string *referer, int *heure){
-//bool analyseLigne(){
-	static string urlLocale = "http://intranet-if.insa-lyon.fr";
-	static size_t sizeUrlLocale = urlLocale.length();
-
-	//cout<< UrlLocale << endl;
-	//cout << SizeUrlLocale << endl;
-
-	int nombreOccurenceGuillemets = 0;
-
-	for(size_t i=0; i< ligne.length() ; i++){
-		 if( ligne.at(i) ==':'){
-			 if( (i+2)<sizeUrlLocale){
-				 char* end;
-				 *heure = strtol(ligne.substr(i+1,2).c_str(),&end,10);
-
-				 cout<<"Lheure " << *heure<<endl;
-			 }
-		 }
-		 if(ligne.at(i) == '"' && nombreOccurenceGuillemets==0 ){
-			int debut =i ; //initilisation pour eviter erreurs
-			int fin = ligne.length(); //initilisation pour eviter erreurs
-
-
-
-			//On cherche le / symbolisant le debut de ladresse
-			for(size_t j=i; j<ligne.length();j++){
-				if(ligne.at(j) == '/'){
-					debut = j;
-
-					//on cherche lespace symbolisant la fin de ladresse
-					for(size_t k=j; k<ligne.length();k++){
-						if(ligne.at(k) == ' '){
-							fin = k;
-
-
-							//On cherche les guillemets fermants
-							i=chercherGuillemetsFermants(ligne,k)+1;
-							if(i!=-1){
-								nombreOccurenceGuillemets++;
-							}
-							break;
-						}
-					}
-					break;
-				}
-			}
-
-			*cible = ligne.substr(debut,(fin-debut));
-			cout<<"la cible est :  "<< *cible <<endl;
-		}
-
-
-		 if(ligne.at(i) == '"' && nombreOccurenceGuillemets==1 ){
-			 int debutRef=i+1;
-			 int finRef = chercherGuillemetsFermants(ligne,debutRef);
-			 nombreOccurenceGuillemets++;
-
-			 string refererProbable = ligne.substr(debutRef,(finRef-debutRef));
-
-			 cout<<"Le Referer Probable est :"<<refererProbable<<endl;
-			 if(refererProbable.compare(0,sizeUrlLocale,urlLocale) != 0){
-				 //Pas les memes
-				 *referer = refererProbable;
-			 }else{
-				 *referer = refererProbable.substr(sizeUrlLocale,refererProbable.length());
-			 }
-
-
-			 cout<<"le referer est :  "<< *referer <<endl;
-		}
-
-	}
-
-
-
-
-
-	return true;
-}
-
-
-int chercherGuillemetsFermants(string l, int posDebut){
-	for( size_t i=posDebut; i<l.length();i++){
-		if(l.at(i)== '"'){
-			return i;
-		}
-	}
-	return -1;
-}
-
-
-void genereGraphViz(map<int, map<int,int[24]> > arbre, vector<string> index){
-
-
-	string phrase = "digraph {\n";
-
-
-	for (int i=0; i<index.size(); i++){
-
-		ostringstream convert;
-
-		convert << "node" << i << " [label=\"" << index.at(i) << "\"];" << endl ;
-
-		/**Methode C++11
-		phrase.append("node");
-		phrase.append(to_string(i));
-		phrase.append(" [label=\"");
-		phrase.append(index.at(i));
-		phrase.append("\"];\n");
-		*/
-	}
-
-
-	  map<int, map<int,int[24]> >::iterator it; //Création d'un itérator sur le 'map'
-
-	  for(it = arbre.begin(); it != arbre.end(); it++)
-	  {
-	    //int id = it->first;
-	    map<int,int[24]> sousarbre = it->second;
-
-	    map<int,int[24]>::iterator it2;
-
-	    for( it2 = sousarbre.begin(); it2 != sousarbre.end() ; it2++){
-	    	phrase.append("node");
-
-	    	ostringstream convert;
-	    	convert << it->first << " -> node" << it2->first ;
-	    	convert << " [label=\"" << sommeTableau(it2->second) << "\"];" << endl;
-
-	    	phrase.append(convert.str());
-
-
-
-	    	/*
-	    	//Methode En C++11
-	    	phrase.append(string::to_string(it->first));
-	    	phrase.append(" -> node");
-	    	phrase.append(string::to_string(it2->first));
-	    	phrase.append(" [label=\"");
-	    	phrase.append(string::to_string(sommeTableau(it2->second)));
-	    	phrase.append("\"];\n");
-	   	   */
-	    }
-
-	  }
-
-	  phrase.append("}");
-}
-
-int sommeTableau(int tab[]){
-	int somme = 0;
-
-	for(int i=0;i< (sizeof(tab) / sizeof(int)) ; i++){
-		somme += tab[i] ;
-	}
-
-	return somme;
-}
