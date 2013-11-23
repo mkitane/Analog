@@ -46,6 +46,7 @@ class log
         int sommeTableau(int tab[]);
         void activerOptionX();
         void activerOptionT(int h);
+        bool isAsset(string s);
 };
 
 #endif /* defined(__TP2__log__) */

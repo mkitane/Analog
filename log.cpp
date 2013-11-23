@@ -114,7 +114,14 @@ void log::lire(string s) {
 
     while(getline(file, temp)) {
         analyseLigne(temp, &cible, &referer, &heure);
-        remplir(cible, referer, heure);
+        if(optionX == true) {
+            if(isAsset(cible) == false) {
+                remplir(cible, referer, heure);
+            }
+        }
+        else {
+            remplir(cible, referer, heure);
+        }
     }
 
     
