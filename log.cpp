@@ -116,11 +116,26 @@ void log::lire(string s) {
         analyseLigne(temp, &cible, &referer, &heure);
         if(optionX == true) {
             if(isAsset(cible) == false) {
-                remplir(cible, referer, heure);
+                if(optionT == true) {
+                    if(heure == optionHeure) {
+                        remplir(cible, referer, heure);
+                    }
+                }
+                else {
+                    remplir(cible, referer, heure);
+                }
             }
         }
         else {
-            remplir(cible, referer, heure);
+            if(optionT == true) {
+                if(heure == optionHeure) {
+                    remplir(cible, referer, heure);
+                }
+            }
+            else {
+                remplir(cible, referer, heure);
+            }
+
         }
     }
 
@@ -292,7 +307,7 @@ void log::activerOptionX(){
 
 void log::activerOptionT(int h){
     optionT=true;
-    heure = h; 
+    optionHeure = h;
 }
 
 bool log::isAsset(string s){

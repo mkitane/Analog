@@ -27,7 +27,7 @@ class log
     public :
     bool optionX;
     bool optionT;
-    int heure;
+    int optionHeure;
     
     
     vector<string> referencesTab;

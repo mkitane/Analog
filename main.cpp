@@ -14,7 +14,7 @@ using namespace std;
 
 int main(int argc, const char * argv[])
 {
-    /*
+    
     //METHODE 2
 	// VOIR SI IL FAUT GERER LES ERREURS !
     
@@ -92,7 +92,7 @@ int main(int argc, const char * argv[])
 	}
     
     
-*/
+
     return 0;
 }
 
