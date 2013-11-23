@@ -31,7 +31,7 @@ class log
     
     
     vector<string> referencesTab;
-    
+    vector<int> referencesHits;
     map< size_t, map < size_t, tabHeure> > structure;
     
     
@@ -47,6 +47,7 @@ class log
         void activerOptionX();
         void activerOptionT(int h);
         bool isAsset(string s);
+        void afficherDix(); 
 };
 
 #endif /* defined(__TP2__log__) */

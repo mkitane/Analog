@@ -84,6 +84,7 @@ int main(int argc, const char * argv[])
     
     
     monLog.lire(nomFichier);
+    monLog.afficherDix();
     //monLog.testStructure();
     
     if(argg){

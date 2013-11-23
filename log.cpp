@@ -331,7 +331,9 @@ bool log::isAsset(string s){
     
 }
 
-
+void log::afficherDix(){
+    
+}
 
 
 
