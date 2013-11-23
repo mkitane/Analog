@@ -10,6 +10,7 @@
 
 log::log() {
     optionX=false;
+    optionT=false;
 }
 
 bool log::analyseLigne (string ligne, string *cible, string *referer, int *heure){
@@ -282,6 +283,31 @@ void log::activerOptionX(){
     optionX=true;
 }
 
+void log::activerOptionT(int h){
+    optionT=true;
+    heure = h; 
+}
+
+bool log::isAsset(string s){
+    
+    string extension;
+    for (size_t i=(s.length()-1); i>0 ; i--){
+        if(s.at(i) == '.'){
+            extension=s.substr(i+1, s.length()-i );
+            break;
+        }
+    }
+    
+    string extensionAchercher = "css|js|jpg|jpeg|gif|png";  //Pour ne pas ecrire un if super long
+    
+    //si == npos , il n'a pa trouve lextension
+    if(extensionAchercher.find(extension) != std::string::npos){
+        return true;
+    }else{
+        return false;
+    }
+    
+}
 
 
 

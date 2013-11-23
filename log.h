@@ -26,6 +26,10 @@ class log
 {
     public :
     bool optionX;
+    bool optionT;
+    int heure;
+    
+    
     vector<string> referencesTab;
     
     map< size_t, map < size_t, tabHeure> > structure;
@@ -41,6 +45,7 @@ class log
         void genereGraphViz(map<size_t, map<size_t,tabHeure> > arbre, vector<string> index);
         int sommeTableau(int tab[]);
         void activerOptionX();
+        void activerOptionT(int h);
 };
 
 #endif /* defined(__TP2__log__) */

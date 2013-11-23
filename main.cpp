@@ -11,10 +11,13 @@
 #include "log.h"
 using namespace std;
 
+
 int main(int argc, const char * argv[])
 {
+    /*
     //METHODE 2
 	// VOIR SI IL FAUT GERER LES ERREURS !
+    
 	string nomFichier;
 	string nomGraph;
 	int nbHits;
@@ -74,6 +77,7 @@ int main(int argc, const char * argv[])
 	}
 	if(argt){
 		cout << "Option -t activee, Intervalle a prendre : " << heure << endl;
+        monLog.activerOptionT(heure);
 	}
     
 	//cout << "Le nom du fichier est :" << nomFichier << endl;
@@ -88,7 +92,9 @@ int main(int argc, const char * argv[])
 	}
     
     
-
+*/
     return 0;
 }
+
+
 
