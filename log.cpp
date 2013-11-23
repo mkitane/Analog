@@ -9,7 +9,7 @@
 #include "log.h"
 
 log::log() {
-    
+    optionX=false;
 }
 
 bool log::analyseLigne (string ligne, string *cible, string *referer, int *heure){
@@ -278,7 +278,9 @@ int log::sommeTableau(int tab[]){
 
 
 
-
+void log::activerOptionX(){
+    optionX=true;
+}
 
 
 

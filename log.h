@@ -25,6 +25,7 @@ struct tabHeure {
 class log
 {
     public :
+    bool optionX;
     vector<string> referencesTab;
     
     map< size_t, map < size_t, tabHeure> > structure;
@@ -39,6 +40,7 @@ class log
         void testStructure();
         void genereGraphViz(map<size_t, map<size_t,tabHeure> > arbre, vector<string> index);
         int sommeTableau(int tab[]);
+        void activerOptionX();
 };
 
 #endif /* defined(__TP2__log__) */
