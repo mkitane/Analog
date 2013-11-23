@@ -41,6 +41,7 @@ class log
         void genereGraphViz(map<size_t, map<size_t,tabHeure> > arbre, vector<string> index);
         int sommeTableau(int tab[]);
         void activerOptionX();
+        bool isAsset(string s);
 };
 
 #endif /* defined(__TP2__log__) */
