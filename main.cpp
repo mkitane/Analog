@@ -9,11 +9,13 @@
 #include <iostream>
 #include <stdlib.h>     /* strtol */
 #include "log.h"
+#include "Graph.h"
 using namespace std;
-
 
 int main(int argc, const char * argv[])
 {
+    
+    
     
     //METHODE 2
 	// VOIR SI IL FAUT GERER LES ERREURS !
@@ -67,13 +69,11 @@ int main(int argc, const char * argv[])
 	//cout << "Il y a " << argc << "arguments" << endl;
 
     log monLog;
+    Graph monGraph;
 
-	if(argl){
-		cout<<"Option -l activee, Le nombre de hits demande est :" << nbHits << endl;
-        monLog.activerOptionX(); // Agit sur la commande lire
-	}
 	if(argx){
 		cout << "Option -x activee" << endl;
+        monLog.activerOptionX(); // Agit sur la commande lire
 	}
 	if(argt){
 		cout << "Option -t activee, Intervalle a prendre : " << heure << endl;
@@ -87,9 +87,16 @@ int main(int argc, const char * argv[])
     monLog.afficherDix();
     //monLog.testStructure();
     
+    
+    
+    if(argl){
+		cout<<"Option -l activee, Le nombre de hits demande est :" << nbHits << endl;
+        monGraph.activerOptionL(nbHits);
+	}
     if(argg){
 		cout<<"Option -g activee, Il ya bien un graph a creer dans le fichier :" << nomGraph << endl;
-        monLog.genereGraphViz(monLog.structure, monLog.referencesTab);
+        //monLog.genereGraphViz(monLog.structure, monLog.referencesTab);
+        monGraph.genereGraphViz(monLog.structure, monLog.referencesTab, nomGraph);
 	}
     
     

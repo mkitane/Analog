@@ -42,8 +42,6 @@ class log
         void lire(string s);
         void remplir(string cible, string referer, int heure);
         void testStructure();
-        void genereGraphViz(map<size_t, map<size_t,tabHeure> > arbre, vector<string> index);
-        int sommeTableau(int tab[]);
         void activerOptionX();
         void activerOptionT(int h);
         bool isAsset(string s);

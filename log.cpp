@@ -112,36 +112,44 @@ void log::lire(string s) {
     ifstream file(s);
     string temp;
 
+    
+    if(file.is_open()){
     while(getline(file, temp)) {
         analyseLigne(temp, &cible, &referer, &heure);
-        if(optionX == true) {
-            if(isAsset(cible) == false) {
-                if(optionT == true) {
-                    if(heure == optionHeure) {
-                        remplir(cible, referer, heure);
-                    }
-                }
-                else {
-                    remplir(cible, referer, heure);
-                }
-            }
-        }
-        else {
-            if(optionT == true) {
+        switch (1*optionT + 10*optionX) {
+            case 0:
+                //Aucune des deux options n'est activee
+                remplir(cible, referer, heure);
+                break;
+            case 1:
+                //OptionTSeulement activee
                 if(heure == optionHeure) {
                     remplir(cible, referer, heure);
                 }
+                break;
+            case 10:
+                //OptionX Seulement Activee
+                if(isAsset(cible) == false) {
+                    remplir(cible, referer, heure);
+                }
+                break;
+            case 11:
+                //OptionX et T activee
+                if(isAsset(cible) == false && heure==optionHeure) {
+                    remplir(cible, referer, heure);
+                }
+                break;
+            default:
+                break;
             }
-            else {
-                remplir(cible, referer, heure);
-            }
-
         }
+        file.close();
+    }else{
+        cout<< "Impossible d'ouvrir le fichier" << s <<endl;
     }
-
-    
-    file.close();
 }
+
+
 
 void log::remplir(string cible, string referer, int heure) {
     
@@ -184,7 +192,6 @@ void log::remplir(string cible, string referer, int heure) {
 
 void log::testStructure() {
     
-    //cout << referencesTab.size() << endl;
     for(int i = 0; i < referencesTab.size(); i++) {
       //  cout << referencesTab[i] << endl;
     }
@@ -210,91 +217,6 @@ void log::testStructure() {
 }
 
 
-
-
-
-void log::genereGraphViz(map<size_t, map<size_t,tabHeure> > arbre, vector<string> index){
-    
-    
-    
-    
-	string phrase = "digraph {\n";
-    
-    
-	for (int i=0; i<index.size(); i++){
-        
-		ostringstream convert;
-        
-		convert << "node" << i << " [label=\"" << index.at(i) << "\"];" << endl ;
-        
-        phrase.append(convert.str());
-		/**Methode C++11
-         phrase.append("node");
-         phrase.append(to_string(i));
-         phrase.append(" [label=\"");
-         phrase.append(index.at(i));
-         phrase.append("\"];\n");
-         */
-	}
-    
-    
-    
-    
-    
-    map<size_t, map<size_t,tabHeure> >::iterator it; //Création d'un itérator sur le 'map'
-    
-    for(it = arbre.begin(); it != arbre.end(); it++)
-    {
-	    //int id = it->first;
-	    map<size_t,tabHeure> sousarbre = it->second;
-        
-	    map<size_t,tabHeure>::iterator it2;
-        
-	    for( it2 = sousarbre.begin(); it2 != sousarbre.end() ; it2++){
-	    	phrase.append("node");
-            
-	    	ostringstream convert;
-	    	convert << it->first << " -> node" << it2->first ;
-	    	convert << " [label=\"" << sommeTableau((it2->second).tab) << "\"];" << endl;
-            
-	    	phrase.append(convert.str());
-            
-            
-            
-	    	/*
-             //Methode En C++11
-             phrase.append(string::to_string(it->first));
-             phrase.append(" -> node");
-             phrase.append(string::to_string(it2->first));
-             phrase.append(" [label=\"");
-             phrase.append(string::to_string(sommeTableau(it2->second)));
-             phrase.append("\"];\n");
-             */
-	    }
-        
-    }
-    
-    phrase.append("}");
-    cout << phrase << endl;
-    
-    
-    ofstream theFile;
-    theFile.open("/Users/Mehdi/Desktop/court.dot");
-    theFile << phrase;
-    theFile.close();
-    
-    //system("dot -Tpng -o /Users/Mehdi/Desktop/court.png /Users/Mehdi/Desktop/court.dot");
-}
-
-int log::sommeTableau(int tab[]){
-	int somme = 0;
-    
-	for(int i=0;i< 24; i++){
-		somme += tab[i] ;
-	}
-    
-	return somme;
-}
 
 
 
