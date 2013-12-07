@@ -186,7 +186,7 @@ void log::remplir(string cible, string referer, int heure) {
     }
     
     
-    structure[refIndex][cibIndex].tab[heure]++;
+    structure[cibIndex][refIndex].tab[heure]++;
     
 }
 
@@ -201,10 +201,10 @@ void log::testStructure() {
     map<size_t, map<size_t, tabHeure> >::iterator iter1;
     for (iter1 = structure.begin(); iter1 != structure.end(); iter1++)
     {
-        cout << "referer: " << referencesTab[iter1->first] << endl << "Cibles:" << endl << endl;
+        cout << "Cible: " << referencesTab[iter1->first] << endl << "Referers:" << endl << endl;
         map<size_t, tabHeure>::iterator iter2;
         for (iter2 = iter1->second.begin(); iter2 != iter1->second.end(); iter2++) {
-            cout << "          Cible: " << referencesTab[iter2->first] << endl << "          Hits: ";
+            cout << "          Referer: " << referencesTab[iter2->first] << endl << "          Hits: ";
             for(int i = 0; i < 24; i++) {
                 //  cout << referencesTab[i] << endl;
                 cout << structure[iter1->first][iter2->first].tab[i] << " ";

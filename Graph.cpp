@@ -57,15 +57,26 @@ void Graph::genereGraphViz(map<size_t, map<size_t,tabHeure> > arbre, vector<stri
             //
             //Que faire si les deux arcs sont supprimés?
             int nbHitsNoeud = sommeTableau((it2->second).tab) ;
-            if(nbHitsNoeud<nbHits){
+            if(optionL==true){
+                if(nbHitsNoeud<nbHits){
+                    phrase.append("node");
+                
+                    ostringstream convert;
+                    //On change lequel en premier vu que la struc a change
+                    convert << it2->first << " -> node" << it->first ;
+                    convert << " [label=\"" << nbHitsNoeud << "\"];" << endl;
+            
+                    phrase.append(convert.str());
+            
+                }
+            }else{
                 phrase.append("node");
                 
                 ostringstream convert;
-                convert << it->first << " -> node" << it2->first ;
+                convert << it2->first << " -> node" << it->first ;
                 convert << " [label=\"" << nbHitsNoeud << "\"];" << endl;
             
                 phrase.append(convert.str());
-            
             }
             
 	    	/*
