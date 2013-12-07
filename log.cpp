@@ -218,7 +218,7 @@ void log::testStructure() {
 
 
 vector< vector<int> > log::afficherDix(){
-    cout << "Debut top10" << endl;
+
     vector< vector<int> > top10;
     map<size_t, map<size_t, tabHeure> >::iterator it1; //Iterateur sur la structure
     int i = 1;
@@ -261,7 +261,7 @@ vector< vector<int> > log::afficherDix(){
         }
         i++;
     }
-    cout << "Fin top10" << endl;
+    
     return top10;
 }
 
