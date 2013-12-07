@@ -217,9 +217,53 @@ void log::testStructure() {
 }
 
 
-
-
-
+vector< vector<int> > log::afficherDix(){
+    cout << "Debut top10" << endl;
+    vector< vector<int> > top10;
+    map<size_t, map<size_t, tabHeure> >::iterator it1; //Iterateur sur la structure
+    int i = 1;
+    int ttlHits = 0;
+    for (it1 = structure.begin(); it1 != structure.end(); it1++)
+    {
+        int nbHits = 0;
+        map<size_t, tabHeure>::iterator it2;
+        for (it2 = it1->second.begin(); it2 != it1->second.end(); it2++) {
+            
+            for(int i = 0; i < 24; i++) {
+                nbHits+=structure[it1->first][it2->first].tab[i];
+                ttlHits+=structure[it1->first][it2->first].tab[i];
+            }
+            
+            // Detection de la dernière iteration sur la même cible
+            map<size_t, tabHeure>::iterator final_iter = it1->second.end();
+            --final_iter;
+            if (it2 == final_iter) {
+                
+                if(i<=10) {
+                    vector<int> monvect;
+                    monvect.push_back(it1->first);
+                    monvect.push_back(nbHits);
+                    
+                    top10.push_back(monvect);
+                    
+                    sort(top10.begin(), top10.end(), [](const std::vector< int >& a, const std::vector< int >& b){
+                        return a[1] > b[1]; } );
+                }
+                else if (nbHits>top10[9][1]) {
+                    top10[9][0] = it1->first;
+                    top10[9][1] = nbHits;
+                    sort(top10.begin(), top10.end(), [](const std::vector< int >& a, const std::vector< int >& b){
+                        return a[1] > b[1]; } );
+                }
+                
+            }
+            
+        }
+        i++;
+    }
+    cout << "Fin top10" << endl;
+    return top10;
+}
 
 
 
@@ -250,10 +294,6 @@ bool log::isAsset(string s){
     }else{
         return false;
     }
-    
-}
-
-void log::afficherDix(){
     
 }
 

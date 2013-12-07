@@ -83,8 +83,18 @@ int main(int argc, const char * argv[])
 	//cout << "Le nom du fichier est :" << nomFichier << endl;
     
     
-    monLog.lire(nomFichier);
-    monLog.afficherDix();
+    monLog.lire("anonyme.log");
+    
+    /* ------------------- TEST TOP10 ----------------------- */
+    
+    vector< vector<int> > topTen = monLog.afficherDix();
+    
+    for(int i=0; i<10; i++) {
+        cout << topTen[i][0] << " : " << topTen[i][1] << endl;
+    }
+    
+    /* ------------------- FIN TOP10 ----------------------- */
+    
     //monLog.testStructure();
     
     
