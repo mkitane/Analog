@@ -234,7 +234,7 @@ int main(int argc, const char * argv[])
     // do something
     
     monLog.lire(nomFichier);
-
+    monLog.afficherDix();
     //monLog.testStructure();
     
     
