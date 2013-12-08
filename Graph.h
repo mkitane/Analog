@@ -1,27 +1,90 @@
-//
-//  Graph.h
-//  tp2
-//
-//  Created by Mehdi Kitane on 05/12/2013.
-//  Copyright (c) 2013 Mehdi Kitane. All rights reserved.
-//
+/*************************************************************************
+Graph  -  description
+ -------------------
+ début                : 1 déc. 2013
+ copyright            : (C) 2013 par Mehdi
+ *************************************************************************/
 
-#ifndef __tp2__Graph__
-#define __tp2__Graph__
+//---------- Interface de la classe <Graph> (fichier Graph.h) ------
+#if ! defined ( GRAPH_H_ )
+#define GRAPH_H_
 
+
+//--------------------------------------------------- Interfaces utilisées
 #include <iostream>
 #include "log.h"
+//------------------------------------------------------------- Constantes
 
-class Graph {
-private:
-    int nbHits;
-    bool optionL;
+//------------------------------------------------------------------ Types
+
+
+
+//------------------------------------------------------------------------
+// Rôle de la classe <Graph>
+//
+//
+//------------------------------------------------------------------------
+
+class Graph
+{
+    //----------------------------------------------------------------- PUBLIC
     
 public:
+    //----------------------------------------------------- Méthodes publiques
+    // type Méthode ( liste des paramètres );
+    // Mode d'emploi :
+    //
+    // Contrat :
+    //
     void genereGraphViz(map<size_t, map<size_t,tabHeure> > arbre, vector<string> index,string nom);
-    int sommeTableau(int tab[]);
+    
+    // type Méthode ( liste des paramètres );
+    // Mode d'emploi :
+    //
+    // Contrat :
+    //
     void activerOptionL(int nb);
-    Graph();
 
+
+    
+    //------------------------------------------------- Surcharge d'opérateurs
+    Graph & operator = ( const Graph & unGraph );
+    // Mode d'emploi :
+    //
+    // Contrat :
+    //
+    
+    
+    //-------------------------------------------- Constructeurs - destructeur
+    Graph ( const Graph & unGraph );
+    // Mode d'emploi (constructeur de copie) :
+    //
+    // Contrat :
+    //
+    
+    Graph ( );
+    // Mode d'emploi :
+    //
+    // Contrat :
+    //
+    
+    virtual ~Graph ( );
+    // Mode d'emploi :
+    //
+    // Contrat :
+    //
+    
+    //------------------------------------------------------------------ PRIVE
+    
+protected:
+    //----------------------------------------------------- Méthodes protégées
+    int sommeTableau(int tab[]);
+
+    //----------------------------------------------------- Attributs protégés
+    int nbHits;
+    bool optionL;
 };
-#endif /* defined(__tp2__Graph__) */
+
+//--------------------------- Autres définitions dépendantes de <Graph>
+
+#endif // GRAPH_H_
