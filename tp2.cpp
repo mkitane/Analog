@@ -32,7 +32,7 @@ string getOption(char** debut,char **fin, const string nomOption){
 /*
 int main( int argc, char* argv[] ){
 
-	/*
+	
 	string nomFichier;
 	string nomGraph;
 	int nbHits;
@@ -61,9 +61,9 @@ int main( int argc, char* argv[] ){
 	//faire default
 
 
-	*/
+	
 
-/*
+
 	//METHODE 2
 	// VOIR SI IL FAUT GERER LES ERREURS !
 	string nomFichier;
@@ -129,7 +129,7 @@ int main( int argc, char* argv[] ){
 
 
 
-	/*
+
 	string trucBase = "192.168.0.0 - - [08/Sep/2012:11:16:02 +0200] \"Get /temps/4IF16.html HTTP/1.1\" 200 12106 \"http://intranet-if.insa-lyon.fr/temps/4IF15.html\" MOZILLA";
 	string cible ;
 	string referer;
@@ -145,8 +145,6 @@ int main( int argc, char* argv[] ){
 	cout<<trucBase<<endl;
 	analyseLigne(trucBase,&cible, &referer, &heure);
 
-	*/
-/*
 	return 0;
 }
 */
