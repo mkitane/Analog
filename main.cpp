@@ -10,12 +10,59 @@
 #include <stdlib.h>     /* strtol */
 #include "log.h"
 #include "Graph.h"
+#include <ctime>
+
 using namespace std;
+
+bool checkIfValidNameFile(string s){
+    if (s.size() <= 4) {
+        return false;
+    }
+    if(s.substr(s.size()-4,4).compare(".log") ==0){
+        return true;
+    }
+    return false;
+    
+    
+}
+bool checkIfValidDotFile(string s){
+    if (s.size() <= 4) {
+        return false;
+    }
+    if(s.substr(s.size()-4,4).compare(".dot") ==0){
+        return true;
+    }
+    return false;
+}
+bool checkIfOption(string s){
+    if(s[0]=='-'){
+        return true;
+    }
+    return false;
+}
+
+bool checkIfNeedParam(string arg){
+    if(arg.compare("g")==0){
+        return true;
+    }
+    if(arg.compare("l")==0){
+        return true;
+    }
+    if(arg.compare("t")==0){
+        return true;
+    }
+    return false;
+}
+bool checkIfValidParam(string param){
+    //si n'a pas la syntaxe d'une option et n'a pa la syntaxe du fichier log
+    return (!checkIfOption(param) && !checkIfValidNameFile(param));
+}
+string getNameOfOption(string s){
+    return s.substr(1,s.size());
+}
 
 int main(int argc, const char * argv[])
 {
-    
-    
     
     //METHODE 2
 	// VOIR SI IL FAUT GERER LES ERREURS !
@@ -31,6 +78,103 @@ int main(int argc, const char * argv[])
 	bool argx=false;
 	bool argt=false;
     
+    
+    
+    if(argc<2){
+        cerr<<"Error : please specify at least the name of the file to analyse" <<endl;
+        return -1;
+    }
+    
+    for(int i=1; argv[i]; i++){
+        if(checkIfOption(argv[i])==true){
+            string nomOption = getNameOfOption(argv[i]);
+            if(checkIfNeedParam(nomOption)==true){
+                if (i + 1 < argc) { // Make sure we aren't at the end of argv!
+                    if(checkIfValidParam(argv[i+1])){
+                        if(nomOption.compare("g")==0){
+                            argg=true;
+                            nomGraph = argv[++i];
+                            if(!checkIfValidDotFile(nomGraph)){
+                                cerr<<"Invalid Dot File, -g option must have a file ending with a .dot extension" << endl;
+                                return -1;
+                            }
+                            //test
+                            cout<<"g active"<<endl;
+                        }
+                        if(nomOption.compare("l")==0){
+                            argl=true;
+                            char* end;
+                            nbHits = strtol(argv[++i],&end,10);
+                            if (*end){
+                                cerr<<"You need to specify a number" <<endl;
+                                return -1;
+                            }
+                            if(nbHits<0){
+                                cerr<<"You need to specify a positive number of Hits" << endl;
+                                return -1;
+                            }
+                            //test
+                            cout<<"l active"<<endl;
+                        }
+                        if(nomOption.compare("t")==0){
+                            argt=true;
+                            char* end;
+                            heure = strtol(argv[++i],&end,10);
+                            if (*end){
+                                cerr<<"You need to specify a number" <<endl;
+                                return -1;
+                            }
+                            if(heure<0 || heure>23){
+                                cerr<<"You need to specify an hour between 0 and 23" << endl;
+                                return -1;
+                            }
+                            //test
+                            cout<<"t active"<<endl;
+                        }
+                    }else{
+                        cerr << "Option " << nomOption << "requires one argument." << std::endl;
+                        return -1;
+                    }
+                    
+                    
+                }
+            }
+            else{
+                //Options That Doesn't Need Params!
+                if(nomOption.compare("x")==0){
+                    //test
+                    cout<<"x active"<<endl;
+                    argx=true;
+                }
+                if(nomOption.compare("h")==0){
+                    cout << "Manuel ./analog Help" << endl;
+                    return -2;
+                }
+                
+                    
+            }
+        }else{
+            //Si ce n'est pas une Option
+            if(i == argc-1){
+                if(checkIfValidNameFile(argv[i])){
+                    nomFichier = argv[i];
+                    //test
+                    cout<<"nom Fichier : "<< nomFichier <<endl;
+                }else{
+                    cerr<<"Invalid file name, name must finish with .log extension" << endl;
+                    return -1;
+                }
+            }else{
+                cerr<< argv[i]<<"Invalid Syntax, name of File must be last Param!" << endl;
+                return -2;
+            }
+        }
+        
+        
+    }
+
+
+/*
 	for(int i=1; argv[i] ;i++){
 		cout<< "argument"<< i << " <"<< argv[i]<<">" << endl;
 		if( string(argv[i]).compare("-g") == 0){
@@ -61,13 +205,15 @@ int main(int argc, const char * argv[])
 			nomFichier = argv[i];
 		}
 	}
-    
+    */
     
     
 	//faire default
     
 	//cout << "Il y a " << argc << "arguments" << endl;
 
+    
+    
     log monLog;
     Graph monGraph;
 
@@ -81,10 +227,15 @@ int main(int argc, const char * argv[])
 	}
     
 	//cout << "Le nom du fichier est :" << nomFichier << endl;
+    //cout<< "Debut Lecture" <<endl;
     
-    
+    //const clock_t begin_time = clock();
+    // do something
     monLog.lire(nomFichier);
-    monLog.afficherDix();
+    
+    //std::cout << float( clock () - begin_time ) /  CLOCKS_PER_SEC << endl;
+
+    //monLog.afficherDix();
     //monLog.testStructure();
     
     
@@ -98,8 +249,8 @@ int main(int argc, const char * argv[])
         //monLog.genereGraphViz(monLog.structure, monLog.referencesTab);
         monGraph.genereGraphViz(monLog.structure, monLog.referencesTab, nomGraph);
 	}
-    
-    
+    //std::cout << float( clock () - begin_time ) /  CLOCKS_PER_SEC << endl;
+
 
     return 0;
 }
