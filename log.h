@@ -1,51 +1,130 @@
-//
-//  log.h
-//  TP2
-//
-//  Created by Karim Benhmida on 22/11/2013.
-//  Copyright (c) 2013 Karim Benhmida. All rights reserved.
-//
+/*************************************************************************
+ log  -  description
+ -------------------
+ début                : 28 oct. 2013
+ copyright            : (C) 2013 par Mehdi
+ *************************************************************************/
 
-#ifndef __TP2__log__
+//---------- Interface de la classe <log> (fichier log.h) ------
+#if ! defined ( __TP2__log__)
 #define __TP2__log__
 
-#include <iostream>
+//--------------------------------------------------- Interfaces utilisées
 #include <string>
-#include <fstream>
 #include <vector>
 #include <map>
-#include <sstream>      // std::ostringstream
-#include <stdlib.h>     /* strtol */
-
 using namespace std;
+
+//------------------------------------------------------------- Constantes
+
+//------------------------------------------------------------------ Types
+
+//------------------------------------------------------------------------
+// Rôle de la classe <log>
+//
+//
+//------------------------------------------------------------------------
 struct tabHeure {
     int tab[24] = {0};
 };
 
 class log
 {
-    public :
+    //----------------------------------------------------------------- PUBLIC
+    
+public:
+    //----------------------------------------------------- Méthodes publiques
+    bool analyseLigne(string ligne, string *cible, string *referer, int *heure);
+    // Mode d'emploi :
+    //
+    // Contrat :
+    //
+    
+    int chercherGuillemetsFermants(string l, int posDebut);
+    // Mode d'emploi :
+    //
+    // Contrat :
+    //
+    
+    void lire(string s);
+    // Mode d'emploi :
+    //
+    // Contrat :
+    //
+    
+    void remplir(string cible, string referer, int heure);
+    // Mode d'emploi :
+    //
+    // Contrat :
+    //
+    
+    void testStructure();
+    // Mode d'emploi :
+    //
+    // Contrat :
+    //
+    
+    void activerOptionX();
+    // Mode d'emploi :
+    //
+    // Contrat :
+    //
+    
+    void activerOptionT(int h);
+    // Mode d'emploi :
+    //
+    // Contrat :
+    //
+    
+    bool isAsset(string s);
+    // Mode d'emploi :
+    //
+    // Contrat :
+    //
+    
+    void afficherDix();
+    // Mode d'emploi :
+    //
+    // Contrat :
+    //
+    
+    
+    //------------------------------------------------- Surcharge d'opérateurs
+    
+    //-------------------------------------------- Constructeurs - destructeur
+    log(const log & unlog);
+    // Mode d'emploi (constructeur de copie) :
+    //
+    // Contrat :
+    //
+    
+    log();
+    // Mode d'emploi :
+    //
+    // Contrat :
+    //
+    
+    virtual ~log ();
+    // Mode d'emploi :
+    //
+    // Contrat :
+    //
+    
+    //------------------------------------------------------------------ PRIVE
+    
+protected:
+    //----------------------------------------------------- Méthodes protégées
+    
+    //----------------------------------------------------- Attributs protégés
     bool optionX;
     bool optionT;
     int optionHeure;
     
-    
     vector<string> referencesTab;
     vector<int> referencesHits;
     map< size_t, map < size_t, tabHeure> > structure;
-    
-    
-    public :
-        log();
-        bool analyseLigne(string ligne, string *cible, string *referer, int *heure);
-        int chercherGuillemetsFermants(string l, int posDebut);
-        void lire(string s);
-        void remplir(string cible, string referer, int heure);
-        void testStructure();
-        void activerOptionX();
-        void activerOptionT(int h);
-        bool isAsset(string s);
-        void afficherDix();
 };
 
-#endif /* defined(__TP2__log__) */
+//--------------------------- Autres définitions dépendantes de <log>
+
+#endif // __TP2__log__
