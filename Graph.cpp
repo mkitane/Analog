@@ -1,21 +1,32 @@
-//
-//  Graph.cpp
-//  tp2
-//
-//  Created by Mehdi Kitane on 05/12/2013.
-//  Copyright (c) 2013 Mehdi Kitane. All rights reserved.
-//
+/*************************************************************************
+ Graph  -  description
+ -------------------
+ début                : 1 déc. 2013
+ copyright            : (C) 2013 par Mehdi
+ *************************************************************************/
 
+//---------- Réalisation de la classe <Graph> (fichier Graph.cpp) -------
+
+//---------------------------------------------------------------- INCLUDE
+
+//-------------------------------------------------------- Include système
+#include <iostream>
+using namespace std;
+
+//------------------------------------------------------ Include personnel
 #include "Graph.h"
 
-Graph::Graph() {
-    optionL=false;
-}
+//------------------------------------------------------------- Constantes
 
+//----------------------------------------------------------------- PUBLIC
+
+//----------------------------------------------------- Méthodes publiques
+// type Graph::Méthode ( liste des paramètres )
+// Algorithme :
+//
+//{
+//} //----- Fin de Méthode
 void Graph::genereGraphViz(map<size_t, map<size_t,tabHeure> > arbre, vector<string> index, string nom){
-    
-    
-    
     
 	string phrase = "digraph {\n";
     
@@ -60,14 +71,14 @@ void Graph::genereGraphViz(map<size_t, map<size_t,tabHeure> > arbre, vector<stri
             if(optionL==true){
                 if(nbHitsNoeud<nbHits){
                     phrase.append("node");
-                
+                    
                     ostringstream convert;
                     //On change lequel en premier vu que la struc a change
                     convert << it2->first << " -> node" << it->first ;
                     convert << " [label=\"" << nbHitsNoeud << "\"];" << endl;
-            
+                    
                     phrase.append(convert.str());
-            
+                    
                 }
             }else{
                 phrase.append("node");
@@ -75,7 +86,7 @@ void Graph::genereGraphViz(map<size_t, map<size_t,tabHeure> > arbre, vector<stri
                 ostringstream convert;
                 convert << it2->first << " -> node" << it->first ;
                 convert << " [label=\"" << nbHitsNoeud << "\"];" << endl;
-            
+                
                 phrase.append(convert.str());
             }
             
@@ -104,6 +115,69 @@ void Graph::genereGraphViz(map<size_t, map<size_t,tabHeure> > arbre, vector<stri
     //system("dot -Tpng -o /Users/Mehdi/Library/Developer/Xcode/DerivedData/tp2-fztozmejudkrvqajmwpxaylckvqo/Build/Products/Debug/nomfichier.png /Users/Mehdi/Library/Developer/Xcode/DerivedData/tp2-fztozmejudkrvqajmwpxaylckvqo/Build/Products/Debug/nomFichier.dot");
 }
 
+
+
+
+
+// type Graph::Méthode ( liste des paramètres )
+// Algorithme :
+//
+//{
+//} //----- Fin de Méthode
+void Graph::activerOptionL(int nb){
+    optionL=true;
+    nbHits=nb;
+}
+
+
+
+
+
+//------------------------------------------------- Surcharge d'opérateurs
+/*
+Graph & Graph::operator = ( const Graph & unGraph )
+// Algorithme :
+//
+{
+} //----- Fin de operator =
+*/
+
+//-------------------------------------------- Constructeurs - destructeur
+Graph::Graph ( const Graph & unGraph )
+// Algorithme :
+//
+{
+    optionL=false;
+#ifdef MAP
+    cout << "Appel au constructeur de copie de <Graph>" << endl;
+#endif
+} //----- Fin de Graph (constructeur de copie)
+
+
+Graph::Graph ( )
+// Algorithme :
+//
+{
+#ifdef MAP
+    cout << "Appel au constructeur de <Graph>" << endl;
+#endif
+} //----- Fin de Graph
+
+
+Graph::~Graph ( )
+// Algorithme :
+//
+{
+#ifdef MAP
+    cout << "Appel au destructeur de <Graph>" << endl;
+#endif
+} //----- Fin de ~Graph
+
+
+//------------------------------------------------------------------ PRIVE
+
+//----------------------------------------------------- Méthodes protégées
+
 int Graph::sommeTableau(int tab[]){
 	int somme = 0;
     
@@ -114,8 +188,7 @@ int Graph::sommeTableau(int tab[]){
 	return somme;
 }
 
-void Graph::activerOptionL(int nb){
-    optionL=true;
-    nbHits=nb;
-}
+
+
+
 
