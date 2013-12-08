@@ -225,16 +225,21 @@ void log::afficherDix(){
     vector< vector<int> > top10;
     map<size_t, map<size_t, tabHeure> >::iterator it1; //Iterateur sur la structure
     int i = 1;
-    int ttlHits = 0;
+   // int ttlHits = 0;
     for (it1 = structure.begin(); it1 != structure.end(); it1++)
     {
         int nbHits = 0;
         map<size_t, tabHeure>::iterator it2;
         for (it2 = it1->second.begin(); it2 != it1->second.end(); it2++) {
             
-            for(int i = 0; i < 24; i++) {
-                nbHits+=structure[it1->first][it2->first].tab[i];
-                ttlHits+=structure[it1->first][it2->first].tab[i];
+            if(optionT==true) {
+                nbHits+=structure[it1->first][it2->first].tab[optionHeure];
+            }
+            else {
+                for(int i = 0; i < 24; i++) {
+                    nbHits+=structure[it1->first][it2->first].tab[i];
+                    //   ttlHits+=structure[it1->first][it2->first].tab[i];
+                }
             }
             
             // Detection de la dernière iteration sur la même cible
@@ -301,7 +306,7 @@ bool log::isAsset(string s){
         }
     }
     
-    string extensionAchercher = "css|js|jpg|jpeg|gif|png";  //Pour ne pas ecrire un if super long
+    string extensionAchercher = "css|js|jpg|jpeg|gif|png|ico";  //Pour ne pas ecrire un if super long
     
     //si == npos , il n'a pa trouve lextension
     if(extensionAchercher.find(extension) != std::string::npos){
