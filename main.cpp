@@ -104,7 +104,7 @@ int main(int argc, const char * argv[])
                         if(nomOption.compare("l")==0){
                             argl=true;
                             char* end;
-                            nbHits = strtol(argv[++i],&end,10);
+                            nbHits = (int)strtol(argv[++i],&end,10);
                             if (*end){
                                 cerr<<"You need to specify a number" <<endl;
                                 return 110;
@@ -119,7 +119,7 @@ int main(int argc, const char * argv[])
                         if(nomOption.compare("t")==0){
                             argt=true;
                             char* end;
-                            heure = strtol(argv[++i],&end,10);
+                            heure = (int)strtol(argv[++i],&end,10);
                             if (*end){
                                 cerr<<"You need to specify a number" <<endl;
                                 return 120;
