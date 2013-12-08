@@ -332,8 +332,22 @@ bool log::isAsset(string s)
         return false;
     }
     
+    
 } //----- Fin de isAsset
 
+map< size_t, map < size_t, tabHeure> > log::getStructure() const
+// Algorithme :
+//
+{
+    return structure;
+} //----- Fin de getStructure
+
+vector<string> log::getReferencesTab() const
+// Algorithme :
+//
+{
+    return referencesTab;
+} //----- Fin de getReferencesTab
 
 //------------------------------------------------- Surcharge d'opérateurs
 

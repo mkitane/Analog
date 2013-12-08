@@ -88,6 +88,18 @@ public:
     // Contrat :
     //
     
+    map< size_t, map < size_t, tabHeure> > getStructure() const;
+    // Mode d'emploi :
+    //
+    // Contrat :
+    //
+    
+    vector<string> getReferencesTab() const;
+    // Mode d'emploi :
+    //
+    // Contrat :
+    //
+    
     
     //------------------------------------------------- Surcharge d'opérateurs
     
