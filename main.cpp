@@ -231,11 +231,21 @@ int main(int argc, const char * argv[])
     
     //const clock_t begin_time = clock();
     // do something
+    
     monLog.lire(nomFichier);
     
-    //std::cout << float( clock () - begin_time ) /  CLOCKS_PER_SEC << endl;
+    /* ------------------- TEST TOP10 ----------------------- */
+    
+    vector< vector<int> > topTen = monLog.afficherDix();
+    
+    for(int i=0; i<10; i++) {
+        cout << monLog.referencesTab[topTen[i][0]] << " : " << topTen[i][1] << endl;
+    }
+    
+    /* ------------------- FIN TOP10 ----------------------- */
+    
+    
 
-    //monLog.afficherDix();
     //monLog.testStructure();
     
     
