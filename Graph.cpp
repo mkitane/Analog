@@ -11,6 +11,8 @@
 
 //-------------------------------------------------------- Include système
 #include <iostream>
+#include <sstream>
+#include <fstream>
 using namespace std;
 
 //------------------------------------------------------ Include personnel

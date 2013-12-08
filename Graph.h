@@ -48,7 +48,7 @@ public:
 
     
     //------------------------------------------------- Surcharge d'opérateurs
-    Graph & operator = ( const Graph & unGraph );
+    //Graph & operator = ( const Graph & unGraph );
     // Mode d'emploi :
     //
     // Contrat :
