@@ -186,7 +186,7 @@ int main(int argc, const char * argv[])
 		if( string(argv[i]).compare("-l") == 0){
 			argl=true;
 			char* end;
-			nbHits = strtol(argv[i+1],&end,10);
+			nbHits = (int)strtol(argv[i+1],&end,10);
 			i++;
 		}
         
@@ -197,7 +197,7 @@ int main(int argc, const char * argv[])
 		if( string(argv[i]).compare("-t") == 0){
 			argt=true;
 			char* end;
-			heure = strtol(argv[i+1],&end,10);
+			heure = (int)strtol(argv[i+1],&end,10);
 			i++;
 		}
         

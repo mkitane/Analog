@@ -27,30 +27,30 @@ bool log::analyseLigne (string ligne, string *cible, string *referer, int *heure
         if( ligne.at(i) ==':'){
             if( (i+2)<sizeUrlLocale){
                 char* end;
-                *heure = strtol(ligne.substr(i+1,2).c_str(),&end,10);
+                *heure = (int)strtol(ligne.substr(i+1,2).c_str(),&end,10);
                 
                 //cout<<"Lheure " << *heure<<endl;
             }
         }
         if(ligne.at(i) == '"' && nombreOccurenceGuillemets==0 ){
-			int debut =i ; //initilisation pour eviter erreurs
-			int fin = ligne.length(); //initilisation pour eviter erreurs
+			int debut =(int)i ; //initilisation pour eviter erreurs
+			int fin = (int)ligne.length(); //initilisation pour eviter erreurs
             
             
             
 			//On cherche le / symbolisant le debut de ladresse
 			for(size_t j=i; j<ligne.length();j++){
 				if(ligne.at(j) == '/'){
-					debut = j;
+					debut = (int)j;
                     
 					//on cherche lespace symbolisant la fin de ladresse
 					for(size_t k=j; k<ligne.length();k++){
 						if(ligne.at(k) == ' '){
-							fin = k;
+							fin = (int)k;
                             
                             
 							//On cherche les guillemets fermants
-							i=chercherGuillemetsFermants(ligne,k)+1;
+							i=chercherGuillemetsFermants(ligne,(int)k)+1;
 							if(i!=-1){
 								nombreOccurenceGuillemets++;
 							}
@@ -67,7 +67,7 @@ bool log::analyseLigne (string ligne, string *cible, string *referer, int *heure
         
         
         if(ligne.at(i) == '"' && nombreOccurenceGuillemets==1 ){
-            int debutRef=i+1;
+            int debutRef=(int)i+1;
             int finRef = chercherGuillemetsFermants(ligne,debutRef);
             nombreOccurenceGuillemets++;
             
@@ -97,7 +97,7 @@ bool log::analyseLigne (string ligne, string *cible, string *referer, int *heure
 int log::chercherGuillemetsFermants(string l, int posDebut){
 	for( size_t i=posDebut; i<l.length();i++){
 		if(l.at(i)== '"'){
-			return i;
+			return (int)i;
 		}
 	}
 	return -1;
@@ -171,6 +171,9 @@ void log::remplir(string cible, string referer, int heure) {
             cibExists = true;
             cibIndex = i;
         }
+        if(refExists==true && cibExists==true){
+            break;
+        }
     }
     
     // Sinon on reference referer et cible et on recupere l'index
@@ -217,9 +220,53 @@ void log::testStructure() {
 }
 
 
+vector< vector<int> > log::afficherDix(){
 
-
-
+    vector< vector<int> > top10;
+    map<size_t, map<size_t, tabHeure> >::iterator it1; //Iterateur sur la structure
+    int i = 1;
+    int ttlHits = 0;
+    for (it1 = structure.begin(); it1 != structure.end(); it1++)
+    {
+        int nbHits = 0;
+        map<size_t, tabHeure>::iterator it2;
+        for (it2 = it1->second.begin(); it2 != it1->second.end(); it2++) {
+            
+            for(int i = 0; i < 24; i++) {
+                nbHits+=structure[it1->first][it2->first].tab[i];
+                ttlHits+=structure[it1->first][it2->first].tab[i];
+            }
+            
+            // Detection de la dernière iteration sur la même cible
+            map<size_t, tabHeure>::iterator final_iter = it1->second.end();
+            --final_iter;
+            if (it2 == final_iter) {
+                
+                if(i<=10) {
+                    vector<int> monvect;
+                    monvect.push_back((int)it1->first);
+                    monvect.push_back(nbHits);
+                    
+                    top10.push_back(monvect);
+                    
+                    sort(top10.begin(), top10.end(), [](const std::vector< int >& a, const std::vector< int >& b){
+                        return a[1] > b[1]; } );
+                }
+                else if (nbHits>top10[9][1]) {
+                    top10[9][0] = (int)it1->first;
+                    top10[9][1] = nbHits;
+                    sort(top10.begin(), top10.end(), [](const std::vector< int >& a, const std::vector< int >& b){
+                        return a[1] > b[1]; } );
+                }
+                
+            }
+            
+        }
+        i++;
+    }
+    
+    return top10;
+}
 
 
 
@@ -250,10 +297,6 @@ bool log::isAsset(string s){
     }else{
         return false;
     }
-    
-}
-
-void log::afficherDix(){
     
 }
 
