@@ -220,7 +220,7 @@ void log::testStructure() {
 }
 
 
-vector< vector<int> > log::afficherDix(){
+void log::afficherDix(){
 
     vector< vector<int> > top10;
     map<size_t, map<size_t, tabHeure> >::iterator it1; //Iterateur sur la structure
@@ -252,9 +252,9 @@ vector< vector<int> > log::afficherDix(){
                     sort(top10.begin(), top10.end(), [](const std::vector< int >& a, const std::vector< int >& b){
                         return a[1] > b[1]; } );
                 }
-                else if (nbHits>top10[9][1]) {
-                    top10[9][0] = (int)it1->first;
-                    top10[9][1] = nbHits;
+                else if (nbHits>top10.back()[1]) {
+                    top10.back()[0] = (int)it1->first;
+                    top10.back()[1] = nbHits;
                     sort(top10.begin(), top10.end(), [](const std::vector< int >& a, const std::vector< int >& b){
                         return a[1] > b[1]; } );
                 }
@@ -265,7 +265,19 @@ vector< vector<int> > log::afficherDix(){
         i++;
     }
     
-    return top10;
+    vector< vector<int> >::iterator top10it;
+    
+    for (top10it = top10.begin(); top10it < top10.end(); top10it++) {
+        cout << referencesTab[top10[top10it-top10.begin()][0]] << " : " << top10[top10it-top10.begin()][1] << endl;
+    }
+  /*
+   
+   // OLD VERSION - not working properly
+   
+    for(int i=0; i<10; i++) {
+        cout << referencesTab[top10[i][0]] << " : " << top10[i][1] << endl;
+    }
+   */
 }
 
 

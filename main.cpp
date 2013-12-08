@@ -233,14 +233,10 @@ int main(int argc, const char * argv[])
     // do something
     
     monLog.lire(nomFichier);
+    monLog.afficherDix();
     
     /* ------------------- TEST TOP10 ----------------------- */
     
-    vector< vector<int> > topTen = monLog.afficherDix();
-    
-    for(int i=0; i<10; i++) {
-        cout << monLog.referencesTab[topTen[i][0]] << " : " << topTen[i][1] << endl;
-    }
     
     /* ------------------- FIN TOP10 ----------------------- */
     
