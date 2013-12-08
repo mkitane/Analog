@@ -45,7 +45,7 @@ class log
         void activerOptionX();
         void activerOptionT(int h);
         bool isAsset(string s);
-        vector< vector<int> > afficherDix();
+        void afficherDix();
 };
 
 #endif /* defined(__TP2__log__) */
