@@ -96,7 +96,7 @@ int main(int argc, const char * argv[])
                             nomGraph = argv[++i];
                             if(!checkIfValidDotFile(nomGraph)){
                                 cerr<<"Invalid Dot File, -g option must have a file ending with a .dot extension" << endl;
-                                return -1;
+                                return 100;
                             }
                             //test
                             cout<<"g active"<<endl;
@@ -107,11 +107,11 @@ int main(int argc, const char * argv[])
                             nbHits = strtol(argv[++i],&end,10);
                             if (*end){
                                 cerr<<"You need to specify a number" <<endl;
-                                return -1;
+                                return 110;
                             }
                             if(nbHits<0){
                                 cerr<<"You need to specify a positive number of Hits" << endl;
-                                return -1;
+                                return 111;
                             }
                             //test
                             cout<<"l active"<<endl;
@@ -122,18 +122,18 @@ int main(int argc, const char * argv[])
                             heure = strtol(argv[++i],&end,10);
                             if (*end){
                                 cerr<<"You need to specify a number" <<endl;
-                                return -1;
+                                return 120;
                             }
                             if(heure<0 || heure>23){
                                 cerr<<"You need to specify an hour between 0 and 23" << endl;
-                                return -1;
+                                return 121;
                             }
                             //test
                             cout<<"t active"<<endl;
                         }
                     }else{
                         cerr << "Option " << nomOption << "requires one argument." << std::endl;
-                        return -1;
+                        return 130;
                     }
                     
                     
@@ -148,13 +148,14 @@ int main(int argc, const char * argv[])
                 }
                 if(nomOption.compare("h")==0){
                     cout << "Manuel ./analog Help" << endl;
-                    return -2;
+                    return 2;
                 }
                 
                     
             }
         }else{
             //Si ce n'est pas une Option
+            //C'est donc obligatoirement le nom d'un fichier!
             if(i == argc-1){
                 if(checkIfValidNameFile(argv[i])){
                     nomFichier = argv[i];
@@ -162,11 +163,11 @@ int main(int argc, const char * argv[])
                     cout<<"nom Fichier : "<< nomFichier <<endl;
                 }else{
                     cerr<<"Invalid file name, name must finish with .log extension" << endl;
-                    return -1;
+                    return 200;
                 }
             }else{
-                cerr<< argv[i]<<"Invalid Syntax, name of File must be last Param!" << endl;
-                return -2;
+                cerr<< "Invalid Syntax, you must only specify options or name of the file" << endl;
+                return 210;
             }
         }
         
@@ -233,18 +234,6 @@ int main(int argc, const char * argv[])
     // do something
     
     monLog.lire(nomFichier);
-    
-    /* ------------------- TEST TOP10 ----------------------- */
-    
-    vector< vector<int> > topTen = monLog.afficherDix();
-    
-    for(int i=0; i<10; i++) {
-        cout << monLog.referencesTab[topTen[i][0]] << " : " << topTen[i][1] << endl;
-    }
-    
-    /* ------------------- FIN TOP10 ----------------------- */
-    
-    
 
     //monLog.testStructure();
     
