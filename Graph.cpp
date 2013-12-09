@@ -28,7 +28,7 @@ using namespace std;
 //
 //{
 //} //----- Fin de Méthode
-void Graph::genereGraphViz(map<size_t, map<size_t,tabHeure> > arbre, vector<string> index, string nom){
+void Graph::genereGraphViz(map<size_t, map<size_t,tabHeure> > arbre, vector<string> index){
     
 	string phrase = "digraph {\n";
     
@@ -71,7 +71,7 @@ void Graph::genereGraphViz(map<size_t, map<size_t,tabHeure> > arbre, vector<stri
             //Que faire si les deux arcs sont supprimés?
             int nbHitsNoeud = sommeTableau((it2->second).tab) ;
             if(optionL==true){
-                if(nbHitsNoeud<nbHits){
+                if(nbHitsNoeud>nbHits){
                     phrase.append("node");
                     
                     ostringstream convert;
@@ -106,19 +106,41 @@ void Graph::genereGraphViz(map<size_t, map<size_t,tabHeure> > arbre, vector<stri
     }
     
     phrase.append("}");
-    cout << phrase << endl;
+    //cout << phrase << endl;
     
     
-    ofstream theFile;
-    theFile.open(nom);
-    theFile << phrase;
-    theFile.close();
+    //digraph(phrase);
+    
+    digraph = phrase;
+    
     
     //system("dot -Tpng -o /Users/Mehdi/Library/Developer/Xcode/DerivedData/tp2-fztozmejudkrvqajmwpxaylckvqo/Build/Products/Debug/nomfichier.png /Users/Mehdi/Library/Developer/Xcode/DerivedData/tp2-fztozmejudkrvqajmwpxaylckvqo/Build/Products/Debug/nomFichier.dot");
 }
 
 
 
+
+// type Graph::Méthode ( liste des paramètres )
+// Algorithme :
+//
+//{
+//} //----- Fin de Méthode
+void Graph::ecrireGraph(){
+    ofstream theFile;
+    theFile.open(nomFichier);
+    theFile << digraph;
+    theFile.close();
+
+}
+
+// type Graph::Méthode ( liste des paramètres )
+// Algorithme :
+//
+//{
+//} //----- Fin de Méthode
+void Graph::afficherGraph(){
+    cout<<digraph<<endl;
+}
 
 
 // type Graph::Méthode ( liste des paramètres )
@@ -156,10 +178,11 @@ Graph::Graph ( const Graph & unGraph )
 } //----- Fin de Graph (constructeur de copie)
 
 
-Graph::Graph ( )
+Graph::Graph (string nmFichier )
 // Algorithme :
 //
 {
+    nomFichier = nmFichier;
 #ifdef MAP
     cout << "Appel au constructeur de <Graph>" << endl;
 #endif

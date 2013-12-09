@@ -216,7 +216,7 @@ int main(int argc, const char * argv[])
     
     
     log monLog;
-    Graph monGraph;
+    Graph monGraph(nomGraph);
 
 	if(argx){
 		cout << "Option -x activee" << endl;
@@ -246,7 +246,9 @@ int main(int argc, const char * argv[])
     if(argg){
 		cout<<"Option -g activee, Il ya bien un graph a creer dans le fichier :" << nomGraph << endl;
         //monLog.genereGraphViz(monLog.structure, monLog.referencesTab);
-        monGraph.genereGraphViz(monLog.getStructure(), monLog.getReferencesTab(), nomGraph);
+        monGraph.genereGraphViz(monLog.getStructure(), monLog.getReferencesTab());
+        monGraph.afficherGraph();
+        monGraph.ecrireGraph();
 	}
     //std::cout << float( clock () - begin_time ) /  CLOCKS_PER_SEC << endl;
 

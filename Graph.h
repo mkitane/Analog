@@ -36,7 +36,21 @@ public:
     //
     // Contrat :
     //
-    void genereGraphViz(map<size_t, map<size_t,tabHeure> > arbre, vector<string> index,string nom);
+    void genereGraphViz(map<size_t, map<size_t,tabHeure> > arbre, vector<string> index);
+    
+    // type Méthode ( liste des paramètres );
+    // Mode d'emploi :
+    //
+    // Contrat :
+    //
+    void ecrireGraph();
+    
+    // type Méthode ( liste des paramètres );
+    // Mode d'emploi :
+    //
+    // Contrat :
+    //
+    void afficherGraph();
     
     // type Méthode ( liste des paramètres );
     // Mode d'emploi :
@@ -62,7 +76,7 @@ public:
     // Contrat :
     //
     
-    Graph ( );
+    Graph ( string nmFichier );
     // Mode d'emploi :
     //
     // Contrat :
@@ -81,6 +95,8 @@ protected:
     int sommeTableau(int tab[]);
 
     //----------------------------------------------------- Attributs protégés
+    string nomFichier;
+    string digraph;
     int nbHits;
     bool optionL;
 };
