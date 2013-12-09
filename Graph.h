@@ -93,7 +93,9 @@ public:
 protected:
     //----------------------------------------------------- Méthodes protégées
     int sommeTableau(int tab[]);
-
+    string genereGraphVizAvecOptionL(map<size_t, map<size_t,tabHeure> > arbre, vector<string> index);
+    string genereGraphVizSansOptionL(map<size_t, map<size_t,tabHeure> > arbre, vector<string> index);
+    
     //----------------------------------------------------- Attributs protégés
     string nomFichier;
     string digraph;
