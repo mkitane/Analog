@@ -31,33 +31,30 @@ class Graph
     
 public:
     //----------------------------------------------------- Méthodes publiques
-    // type Méthode ( liste des paramètres );
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
     void genereGraphViz(map<size_t, map<size_t,tabHeure> > arbre, vector<string> index);
-    
-    // type Méthode ( liste des paramètres );
     // Mode d'emploi :
-    //
+    // Genere notre fichier graph et le stocke en memoire
     // Contrat :
     //
+    
     void ecrireGraph();
-    
-    // type Méthode ( liste des paramètres );
     // Mode d'emploi :
-    //
+    //  Ecrit le contenu du graph dans le fichier specifie dans le constructeur
     // Contrat :
-    //
+    //  Donner un nom de fichier valide
+    
     void afficherGraph();
-    
-    // type Méthode ( liste des paramètres );
     // Mode d'emploi :
-    //
+    //  Affiche le contenu du graph dans le terminal
     // Contrat :
     //
+    
     void activerOptionL(int nb);
+    // Mode d'emploi :
+    //  Rend l'option L active
+    //  c'est a dire prise en compte par les autres methodes dans leur execution
+    // Contrat :
+    //
 
 
     

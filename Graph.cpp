@@ -25,12 +25,12 @@ using namespace std;
 //----------------------------------------------------------------- PUBLIC
 
 //----------------------------------------------------- Méthodes publiques
-// type Graph::Méthode ( liste des paramètres )
+
+void Graph::genereGraphViz(map<size_t, map<size_t,tabHeure> > arbre, vector<string> index)
 // Algorithme :
-//
-//{
-//} //----- Fin de Méthode
-void Graph::genereGraphViz(map<size_t, map<size_t,tabHeure> > arbre, vector<string> index){
+//Verifie si option L est activee et lance la methode de generation du graph adequate
+//Stocke le resultat dans la variable de classe digraph
+{
     
     
     //On a choisit de faire deux methodes differentes pour generer le graph avec ou sans loption
@@ -41,44 +41,41 @@ void Graph::genereGraphViz(map<size_t, map<size_t,tabHeure> > arbre, vector<stri
     }else{
         digraph = genereGraphVizSansOptionL(arbre,index);
     }
+
+} //----- Fin de Méthode
+
+
+
+
     
-    //system("dot -Tpng -o /Users/Mehdi/Library/Developer/Xcode/DerivedData/tp2-fztozmejudkrvqajmwpxaylckvqo/Build/Products/Debug/nomfichier.png /Users/Mehdi/Library/Developer/Xcode/DerivedData/tp2-fztozmejudkrvqajmwpxaylckvqo/Build/Products/Debug/nomFichier.dot");
-}
-
-
-
-
-// type Graph::Méthode ( liste des paramètres )
+void Graph::ecrireGraph()
 // Algorithme :
 //
-//{
-//} //----- Fin de Méthode
-void Graph::ecrireGraph(){
+{
     ofstream theFile;
     theFile.open(nomFichier);
     theFile << digraph;
     theFile.close();
-}
+}//----- Fin de Méthode
 
-// type Graph::Méthode ( liste des paramètres )
+
+void Graph::afficherGraph()
 // Algorithme :
 //
-//{
-//} //----- Fin de Méthode
-void Graph::afficherGraph(){
+{
     cout<<digraph<<endl;
-}
+}//----- Fin de Méthode
 
 
-// type Graph::Méthode ( liste des paramètres )
+
+void Graph::activerOptionL(int nb)
 // Algorithme :
 //
-//{
-//} //----- Fin de Méthode
-void Graph::activerOptionL(int nb){
+{
     optionL=true;
     nbHits=nb;
-}
+}//----- Fin de Méthode
+
 
 
 
@@ -94,6 +91,8 @@ Graph & Graph::operator = ( const Graph & unGraph )
 */
 
 //-------------------------------------------- Constructeurs - destructeur
+
+//A REVOIR !! CONSTRUCTEUR COPIE !
 Graph::Graph ( const Graph & unGraph )
 // Algorithme :
 //
@@ -110,6 +109,7 @@ Graph::Graph (string nmFichier )
 //
 {
     nomFichier = nmFichier;
+    optionL=false;
 #ifdef MAP
     cout << "Appel au constructeur de <Graph>" << endl;
 #endif
@@ -130,7 +130,16 @@ Graph::~Graph ( )
 
 //----------------------------------------------------- Méthodes protégées
 
-int Graph::sommeTableau(int tab[]){
+int Graph::sommeTableau(int tab[])
+// Algorithme :
+//Debut Methode
+//  entier somme =0
+//  Pour tous les elements du tableau
+//      ajouter valeur de cet element du tableau a somme
+//  Fin Pour
+//  Retourner Somme
+//Fin Methode
+{
 	int somme = 0;
     
 	for(int i=0;i< 24; i++){
@@ -138,10 +147,50 @@ int Graph::sommeTableau(int tab[]){
 	}
     
 	return somme;
-}
+}//----- Fin de Méthode
 
 
-string Graph::genereGraphVizAvecOptionL(map<size_t, map<size_t,tabHeure> > arbre, vector<string> index){
+
+string Graph::genereGraphVizAvecOptionL(map<size_t, map<size_t,tabHeure> > arbre, vector<string> index)
+// Algorithme :
+//Debut Methode
+//  string phrase = "digraph{\n"
+//  string noeuds = string arcs = ""
+//  set noeudsAjoutes
+//
+//
+//  Pour tous les elements de notre map de cible
+//      Pour tous les elements de notre map de referer
+//          entier nbClic = On calcule le nombre de clic total pour le couple cible/referer donne
+//          Si nbClic > (nombredehits specifie dans la commande)
+//              On verifie si la structure noeudAjoute contient la cible
+//              Si Oui
+//                  Ne rien faire
+//              Si non
+//                  Ajouter a la structure noeudAjoute la cible
+//                  noeud += "node (numeroCibleDansLindex) [label=\ nomCible];
+//              FinSi
+//
+//              On verifie si la structure noeudAjoute contient le referer
+//              Si Oui
+//                  Ne rien faire
+//              Si non
+//                  Ajouter a la structure noeudAjoute le referer
+//                  noeud += "node (numeroRefererDansLindex) [label=\ nomReferer];
+//              FinSi
+//
+//              arcs += "node (numeroRefererDansLindex) -> node (numeroCibleDansLindex) [label="(nbClic)"];
+//          Sinon
+//              On ne fait rien
+//          FinSi
+//      Fin Pour
+//  Fin Pour
+//
+//
+//  phrase = phrase + noeuds + arcs + "}"
+//  Retourner phrase
+//Fin Methode
+{
     string phrase = "digraph {\n";
     string noeuds;
     string arcs;
@@ -210,9 +259,34 @@ string Graph::genereGraphVizAvecOptionL(map<size_t, map<size_t,tabHeure> > arbre
     phrase.append("}");
     
     return phrase;
-}
+}//----- Fin de Méthode
 
-string Graph::genereGraphVizSansOptionL(map<size_t, map<size_t,tabHeure> > arbre, vector<string> index){
+
+string Graph::genereGraphVizSansOptionL(map<size_t, map<size_t,tabHeure> > arbre, vector<string> index)
+// Algorithme :
+//Debut Methode
+//  string phrase = "digraph {\n";
+//  Pour tous les elements de Index
+//      phrase = phrase + "node (numero de lelement actuel dans l'index) [label=\"(nomDeLelement)"]; "
+//      phrase = phrase + "\" ;
+//  Fin Pour
+//
+// Pour tous les elements de notre map de cible
+//      Pour tous les elements de notre map de referer
+//          entier nbClic = On calcule le nombre de clic total pour le couple cible/referer donne
+//          Si nbClic > (nombredehits specifie dans la commande)
+//              phrase += "node (numeroRefererDansLindex) -> node (numeroCibleDansLindex) [label="(nbClic)"];
+//          Sinon
+//              On ne fait rien
+//          FinSi
+//      Fin Pour
+//  Fin Pour
+//
+//  phrase = phrase + "}"
+//  Retourner phrase
+//Fin Methode
+
+{
 
     string phrase = "digraph {\n";
     
@@ -288,4 +362,4 @@ string Graph::genereGraphVizSansOptionL(map<size_t, map<size_t,tabHeure> > arbre
     
 
     
-}
+}//----- Fin de Méthode
