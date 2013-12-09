@@ -113,56 +113,123 @@ int log::chercherGuillemetsFermants(string l, int posDebut)
 
 void log::lire(string s)
 // Algorithme :
-//
+/*
+chaine cible, referer
+entier heure
+ 
+ouvrirfichier(addresse du fichier)
+ 
+Si(le fichier est lu)
+    tant que (il reste des lignes dans le fichier)
+        AnalyserLaLigne(ligne actuelle, &cible, &referer, &heure)
+ 
+        Si(option t active)
+            Si(heure = heureoption)
+                Remplir(cible, referer, heure)
+            fin Si
+        Sinon Si(option x active)
+            Si(extension de cible autorisee)
+                Remplir(cible, referer, heure)
+            fin Si
+        Sinon Si(option x et t actives)
+            Si(extension de cible autorisee ET heure = heureoption)
+                Remplir(cible, referer, heure)
+            fin Si
+        Sinon
+            Remplir(cible, referer, heure)
+        fin Si
+    fin Tant que
+ 
+    fermerfichier()
+
+Sinon
+    cerr : "Impossible de lire le fichier"
+
+
+*/
 {
     
     string cible;
     string referer;
     int heure;
     
-    ifstream file(s);
-    string temp;
-    
-    
-    if(file.is_open()){
-        while(getline(file, temp)) {
-            analyseLigne(temp, &cible, &referer, &heure);
-            switch (1*optionT + 10*optionX) {
-                case 0:
-                    //Aucune des deux options n'est activee
-                    remplir(cible, referer, heure);
-                    break;
-                case 1:
-                    //OptionTSeulement activee
-                    if(heure == optionHeure) {
+    if(s != "") {
+        
+        ifstream file(s);
+        string temp;
+        
+        
+        if(file.is_open()){
+            while(getline(file, temp)) {
+                analyseLigne(temp, &cible, &referer, &heure);
+                switch (1*optionT + 10*optionX) {
+                    case 0:
+                        //Aucune des deux options n'est activee
                         remplir(cible, referer, heure);
-                    }
-                    break;
-                case 10:
-                    //OptionX Seulement Activee
-                    if(isAsset(cible) == false) {
-                        remplir(cible, referer, heure);
-                    }
-                    break;
-                case 11:
-                    //OptionX et T activee
-                    if(isAsset(cible) == false && heure==optionHeure) {
-                        remplir(cible, referer, heure);
-                    }
-                    break;
-                default:
-                    break;
+                        break;
+                    case 1:
+                        //OptionTSeulement activee
+                        if(heure == optionHeure) {
+                            remplir(cible, referer, heure);
+                        }
+                        break;
+                    case 10:
+                        //OptionX Seulement Activee
+                        if(isAsset(cible) == false) {
+                            remplir(cible, referer, heure);
+                        }
+                        break;
+                    case 11:
+                        //OptionX et T activee
+                        if(isAsset(cible) == false && heure==optionHeure) {
+                            remplir(cible, referer, heure);
+                        }
+                        break;
+                    default:
+                        break;
+                }
             }
+            file.close();
         }
-        file.close();
-    }else{
-        cout<< "Impossible d'ouvrir le fichier" << s <<endl;
+        else
+        {
+            cerr<< "Impossible d'ouvrir le fichier" << s <<endl;
+        }
+
+        
     }
+    
 } //----- Fin de lire
 
 void log::remplir(string cible, string referer, int heure)
 // Algorithme :
-//
+/*
+entier refIndex = cibIndex = 0
+Tant que(il reste des elements dans l'index)
+    Si(referer existe deja dans l'index)
+        refIndex = i // i variable d'incrementation de la boucle
+    fin Si
+    Si(cible existe deja dans l'index)
+        cibIndex = i
+    fin Si
+    Si(referer et cible ont ete trouves)
+        break
+    fin Si
+fin Tant que
+
+Si(referer n'existe pas dans l'index)
+    insererDansIndex(referer)
+    refIndex=index.last
+fin Si
+ 
+Si(cible n'existe pas dans l'index)
+    insererDansIndex(cible)
+    refCible=index.last
+fin Si
+ 
+InsererDansMap(cle : cibIndex, InsererDansMap(cle : refIndex, tableauHeures[heure]++))
+ 
+*/
 {
     
     size_t refIndex = 0;
@@ -236,13 +303,44 @@ void log::testStructure()
 
 void log::afficherDix()
 // Algorithme :
-//
+/*
+
+tableau[ tableau[2] ] top10
+ 
+tant que(il reste des cibles dans structure)
+    nombreDeHits = 0 // nombre de hits pour la cible en cours
+    tant que (il reste des referers pour cette cible)
+        Si(option t active)
+            nombreDeHits = Structure[cibleActuelle][refererActuel].tableauHeures[heureOptionT]
+        Sinon
+            Tant que (il reste des cases dans le tableau d'heures)
+                nombreDeHits = Structure[cibleActuelle][refererActuel].tableauHeures[i] // i variable d'incrementation
+            Fin tant que
+        Fin Si
+ 
+        Si(dernier referer de la cible en cours)
+ 
+            Si(cible est parmis les 10 premieres de la structure)
+                AjouterATop10(indexCible, nombreDeHits) // Ajoute a la fin
+                OrganiserParOrdreDESC(top10)
+            Sinon si (nombreDeHits > top10.dernierElement)
+                SupprimerElement(top10)
+                AjouterATop10(indexCible, nombreDeHits)
+                OrganiserParOrdreDESC(top10)
+            Fin Si
+ 
+        Fin Si
+    Fin Tant que
+Fin tant que
+ 
+AfficherTop10()
+ 
+*/
 {
     
     vector< vector<int> > top10;
     map<size_t, map<size_t, tabHeure> >::iterator it1; //Iterateur sur la structure
     int i = 1;
-    // int ttlHits = 0;
     for (it1 = structure.begin(); it1 != structure.end(); it1++)
     {
         int nbHits = 0;
@@ -255,7 +353,6 @@ void log::afficherDix()
             else {
                 for(int i = 0; i < 24; i++) {
                     nbHits+=structure[it1->first][it2->first].tab[i];
-                    //   ttlHits+=structure[it1->first][it2->first].tab[i];
                 }
             }
             
