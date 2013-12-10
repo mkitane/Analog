@@ -113,10 +113,10 @@ protected:
     // Analyse la ligne passee en parametre a partir de laquelle elle renseigne les variables cible, referer et heure
     // Contrat :
     // ligne doit etre une ligne de log Apache
-    
-    int chercherGuillemetsFermants(string l, int posDebut);
+        
+    int chercherChar(string l, size_t longueur, int posDebut, char separateur);
     // Mode d'emploi :
-    // Recherche les guillements fermants dans un string a partir d'une position
+    // Recherche le separateur dans un string a partir d'une position
     // Contrat :
     // posDebut doit etre positif et inferieur a la taille du string et le string ne doit pas etre vide
     

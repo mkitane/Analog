@@ -230,7 +230,7 @@ int main(int argc, const char * argv[])
 	//cout << "Le nom du fichier est :" << nomFichier << endl;
     //cout<< "Debut Lecture" <<endl;
     
-    //const clock_t begin_time = clock();
+    const clock_t begin_time = clock();
     // do something
     
     monLog.lire(nomFichier);
@@ -250,7 +250,7 @@ int main(int argc, const char * argv[])
         monGraph.afficherGraph();
         monGraph.ecrireGraph();
 	}
-    //std::cout << float( clock () - begin_time ) /  CLOCKS_PER_SEC << endl;
+    std::cout << float( clock () - begin_time ) /  CLOCKS_PER_SEC << endl;
 
 
     return 0;
