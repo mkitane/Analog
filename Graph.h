@@ -40,13 +40,6 @@ public:
     // Contrat :
     // Donner une structure bien remplie
     
-    void genereGraphViz(log::log a);
-    // Mode d'emploi :
-    // Genere notre fichier graph et le stocke en memoire
-    // Contrat :
-    // Donner en parametre un fichier log bien initialisé et rempli.
-    
-    
     void ecrireGraph();
     // Mode d'emploi :
     //  Ecrit le contenu du graph dans le fichier specifie dans le constructeur

@@ -45,13 +45,6 @@ void Graph::genereGraphViz(map<size_t, map<size_t,tabHeure> > arbre, vector<stri
 } //----- Fin de Méthode
 
 
-void Graph::genereGraphViz(log::log a)
-// Algorithme :
-{
-    genereGraphViz(a.getStructure(), a.getReferencesTab());
-} //----- Fin de Méthode
-
-
 
     
 void Graph::ecrireGraph()
