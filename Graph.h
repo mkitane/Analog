@@ -12,7 +12,7 @@ Graph  -  description
 
 //--------------------------------------------------- Interfaces utilisées
 #include <iostream>
-#include "log.h"
+#include "Log.h"
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------ Types
@@ -23,7 +23,7 @@ Graph  -  description
 // Rôle de la classe <Graph>
 //Cette classe contient un ensemble de methodes permettant de generer
 //Un fichier graph a partir de la structure map et de l'index
-//renvoyee par la classe log
+//renvoyee par la classe Log
 //------------------------------------------------------------------------
 //
 //------------------------------------------------------------------------

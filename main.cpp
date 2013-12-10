@@ -8,7 +8,7 @@
 
 #include <iostream>
 #include <stdlib.h>     /* strtol */
-#include "log.h"
+#include "Log.h"
 #include "Graph.h"
 #include <ctime>
 
@@ -54,7 +54,7 @@ bool checkIfNeedParam(string arg){
     return false;
 }
 bool checkIfValidParam(string param){
-    //si n'a pas la syntaxe d'une option et n'a pa la syntaxe du fichier log
+    //si n'a pas la syntaxe d'une option et n'a pa la syntaxe du fichier Log
     return (!checkIfOption(param) && !checkIfValidNameFile(param));
 }
 string getNameOfOption(string s){
@@ -162,7 +162,7 @@ int main(int argc, const char * argv[])
                     //test
                     cout<<"nom Fichier : "<< nomFichier <<endl;
                 }else{
-                    cerr<<"Invalid file name, name must finish with .log extension" << endl;
+                    cerr<<"Invalid file name, name must finish with .Log extension" << endl;
                     return 200;
                 }
             }else{
@@ -215,7 +215,7 @@ int main(int argc, const char * argv[])
 
     
     
-    log monLog;
+    Log monLog;
     Graph monGraph(nomGraph);
 
 	if(argx){

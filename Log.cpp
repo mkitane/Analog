@@ -1,11 +1,11 @@
 /*************************************************************************
- log  -  description
+ Log  -  description
  -------------------
  début                : 28 nov. 2013
  copyright            : (C) 2013 par Mehdi et Karim
  *************************************************************************/
 
-//---------- Réalisation de la classe <log> (fichier log.cpp) -------
+//---------- Réalisation de la classe <Log> (fichier Log.cpp) -------
 
 //---------------------------------------------------------------- INCLUDE
 
@@ -16,14 +16,14 @@
 #include <stdlib.h>     /* strtol */
 
 //------------------------------------------------------ Include personnel
-#include "log.h"
+#include "Log.h"
 
 //------------------------------------------------------------- Constantes
 
 //----------------------------------------------------------------- PUBLIC
 
 //----------------------------------------------------- Méthodes publiques
-void log::lire(string s)
+void Log::lire(string s)
 // Algorithme :
 /*
 chaine cible, referer
@@ -113,7 +113,7 @@ Sinon
     
 } //----- Fin de lire
 
-void log::testStructure()
+void Log::testStructure()
 // Algorithme :
 //
 {
@@ -142,7 +142,7 @@ void log::testStructure()
     
 } //----- Fin de testStructure
 
-void log::afficherDix()
+void Log::afficherDix()
 // Algorithme :
 /*
 
@@ -233,14 +233,14 @@ AfficherTop10()
     
 } //----- Fin de afficherDix
 
-void log::activerOptionX()
+void Log::activerOptionX()
 // Algorithme :
 //
 {
     optionX=true;
 } //----- Fin de activerOptionX
 
-void log::activerOptionT(int h)
+void Log::activerOptionT(int h)
 // Algorithme :
 //
 {
@@ -248,7 +248,7 @@ void log::activerOptionT(int h)
     optionHeure = h;
 } //----- Fin de activerOptionT
 
-bool log::isAsset(string s)
+bool Log::isAsset(string s)
 // Algorithme :
 //
 {
@@ -273,14 +273,14 @@ bool log::isAsset(string s)
     
 } //----- Fin de isAsset
 
-map< size_t, map < size_t, tabHeure> > log::getStructure() const
+map< size_t, map < size_t, tabHeure> > Log::getStructure() const
 // Algorithme :
 //
 {
     return structure;
 } //----- Fin de getStructure
 
-vector<string> log::getReferencesTab() const
+vector<string> Log::getReferencesTab() const
 // Algorithme :
 //
 {
@@ -290,26 +290,26 @@ vector<string> log::getReferencesTab() const
 //------------------------------------------------- Surcharge d'opérateurs
 
 //-------------------------------------------- Constructeurs - destructeur
-log::log()
+Log::Log()
 // Algorithme :
 //
 {
     optionX=false;
     optionT=false;
-} //----- Fin de log
+} //----- Fin de Log
 
-log::~log ( )
+Log::~Log ( )
 // Algorithme :
 //
 {
     
-} //----- Fin de ~log
+} //----- Fin de ~Log
 
 
 //------------------------------------------------------------------ PRIVE
 
 //----------------------------------------------------- Méthodes protégées
-bool log::analyseLigne (string ligne, string *cible, string *referer, int *heure)
+bool Log::analyseLigne (string ligne, string *cible, string *referer, int *heure)
 // Algorithme :
 //
 //
@@ -396,7 +396,7 @@ bool log::analyseLigne (string ligne, string *cible, string *referer, int *heure
 }
 
 /*
-bool log::analyseLigne (string ligne, string *cible, string *referer, int *heure)
+bool Log::analyseLigne (string ligne, string *cible, string *referer, int *heure)
 // Algorithme :
 //
 //
@@ -519,7 +519,7 @@ bool log::analyseLigne (string ligne, string *cible, string *referer, int *heure
 
 
 
-int log::chercherChar(string l, size_t longueur, int posDebut, char separateur)
+int Log::chercherChar(string l, size_t longueur, int posDebut, char separateur)
 // Algorithme :
 //
 {
@@ -531,7 +531,7 @@ int log::chercherChar(string l, size_t longueur, int posDebut, char separateur)
     return -1;
 } // ----- Fin de chercherGuillemetsFermants
 
-void log::remplir(string cible, string referer, int heure)
+void Log::remplir(string cible, string referer, int heure)
 // Algorithme :
 /*
  entier refIndex = cibIndex = 0

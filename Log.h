@@ -1,13 +1,13 @@
 /*************************************************************************
- log  -  description
+ Log  -  description
  -------------------
  début                : 28 oct. 2013
  copyright            : (C) 2013 par Mehdi
  *************************************************************************/
 
-//---------- Interface de la classe <log> (fichier log.h) ------
-#if ! defined ( __TP2__log__)
-#define __TP2__log__
+//---------- Interface de la classe <Log> (fichier Log.h) ------
+#if ! defined ( __TP2__Log__)
+#define __TP2__Log__
 
 //--------------------------------------------------- Interfaces utilisées
 #include <string>
@@ -20,15 +20,15 @@ using namespace std;
 //------------------------------------------------------------------ Types
 
 //------------------------------------------------------------------------
-// Rôle de la classe <log>
-// Cette classe contient un ensemble de methodes permettant de manipuler un fichier .log : le lire, identifier et stocker les informations necessaires dans une structure appropriee
+// Rôle de la classe <Log>
+// Cette classe contient un ensemble de methodes permettant de manipuler un fichier .Log : le lire, identifier et stocker les informations necessaires dans une structure appropriee
 //
 //------------------------------------------------------------------------
 struct tabHeure {
     int tab[24] = {0};
 };
 
-class log
+class Log
 {
     //----------------------------------------------------------------- PUBLIC
     
@@ -36,7 +36,7 @@ public:
     //----------------------------------------------------- Méthodes publiques
     void lire(string s);
     // Mode d'emploi :
-    // Permet de lire un fichier .log et de remplir la structure de donnes au fur et a mesure
+    // Permet de lire un fichier .Log et de remplir la structure de donnes au fur et a mesure
     // Contrat :
     // Prend en parametre un string qui contient l'adresse absolue ou relative du fichier a lire. Ne doit pas être vide
     
@@ -66,7 +66,7 @@ public:
     
     void afficherDix();
     // Mode d'emploi :
-    // Affiche sur la sortie standard les 10 (au maximum) pages les plus vues du fichier log analysé
+    // Affiche sur la sortie standard les 10 (au maximum) pages les plus vues du fichier Log analysé
     // Contrat :
     // Il suffit d'appeler la méthode aucun parametre n'est pris en compte
     
@@ -86,19 +86,19 @@ public:
     //------------------------------------------------- Surcharge d'opérateurs
     
     //-------------------------------------------- Constructeurs - destructeur
-    log(const log & unlog);
+    Log(const Log & unLog);
     // Mode d'emploi (constructeur de copie) :
     //
     // Contrat :
     //
     
-    log();
+    Log();
     // Mode d'emploi :
     //
     // Contrat :
     //
     
-    virtual ~log ();
+    virtual ~Log ();
     // Mode d'emploi :
     //
     // Contrat :
@@ -112,7 +112,7 @@ protected:
     // Mode d'emploi :
     // Analyse la ligne passee en parametre a partir de laquelle elle renseigne les variables cible, referer et heure
     // Contrat :
-    // ligne doit etre une ligne de log Apache
+    // ligne doit etre une ligne de Log Apache
         
     int chercherChar(string l, size_t longueur, int posDebut, char separateur);
     // Mode d'emploi :
@@ -136,6 +136,6 @@ protected:
     map< size_t, map < size_t, tabHeure> > structure;
 };
 
-//--------------------------- Autres définitions dépendantes de <log>
+//--------------------------- Autres définitions dépendantes de <Log>
 
-#endif // __TP2__log__
+#endif // __TP2__Log__
