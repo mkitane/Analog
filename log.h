@@ -112,7 +112,7 @@ protected:
     // Mode d'emploi :
     // Analyse la ligne passee en parametre a partir de laquelle elle renseigne les variables cible, referer et heure
     // Contrat :
-    // ligne doit etre une ligne de log
+    // ligne doit etre une ligne de log Apache
     
     int chercherGuillemetsFermants(string l, int posDebut);
     // Mode d'emploi :

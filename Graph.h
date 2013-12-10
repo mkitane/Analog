@@ -21,7 +21,10 @@ Graph  -  description
 
 //------------------------------------------------------------------------
 // Rôle de la classe <Graph>
-//
+//Cette classe contient un ensemble de methodes permettant de generer
+//Un fichier graph a partir de la structure map et de l'index
+//renvoyee par la classe log
+//------------------------------------------------------------------------
 //
 //------------------------------------------------------------------------
 
@@ -35,7 +38,14 @@ public:
     // Mode d'emploi :
     // Genere notre fichier graph et le stocke en memoire
     // Contrat :
-    //
+    // Donner une structure bien remplie
+    
+    void genereGraphViz(log::log a);
+    // Mode d'emploi :
+    // Genere notre fichier graph et le stocke en memoire
+    // Contrat :
+    // Donner en parametre un fichier log bien initialisé et rempli.
+    
     
     void ecrireGraph();
     // Mode d'emploi :
