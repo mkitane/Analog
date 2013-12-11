@@ -18,7 +18,7 @@ bool checkIfValidNameFile(string s){
     if (s.size() <= 4) {
         return false;
     }
-    if(s.substr(s.size()-4,4).compare(".log") ==0){
+    if(s.substr(s.size()-4,4).compare(".log") ==0 || s.substr(s.size()-4,4).compare(".txt")){
         return true;
     }
     return false;
@@ -163,7 +163,7 @@ int main(int argc, const char * argv[])
                 if(checkIfValidNameFile(argv[i])){
                     nomFichier = argv[i];
                 }else{
-                    cerr<<"Invalid file name, name must finish with .Log extension" << endl;
+                    cerr<<"Invalid file name, name must finish with .log or .txt extensions" << endl;
                     return 200;
                 }
             }else{
