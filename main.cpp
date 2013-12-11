@@ -145,10 +145,13 @@ int main(int argc, const char * argv[])
                     //test
                     //cout<<"Option x activee"<<endl;
                     argx=true;
-                }
+                }else
                 if(nomOption.compare("h")==0){
                     cout << "Manuel ./analog Help" << endl;
                     return 2;
+                }else{
+                    cerr<<"Illegal option : " << nomOption <<endl;
+                    return 3;
                 }
                 
                     
@@ -177,7 +180,9 @@ int main(int argc, const char * argv[])
         cerr<<"You must enter the name of a log file to execute this command" <<endl;
         return 220;
     }
-    
+    if(argl && !argg){
+        cout<<"Warning: option -l ignored because used without -g" << endl;
+    }
     Log monLog;
     Graph monGraph(nomGraph);
 
