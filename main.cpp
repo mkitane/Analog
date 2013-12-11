@@ -18,7 +18,7 @@ bool checkIfValidNameFile(string s){
     if (s.size() <= 4) {
         return false;
     }
-    if(s.substr(s.size()-4,4).compare(".log") ==0){
+    if(s.substr(s.size()-4,4).compare(".log") ==0 || s.substr(s.size()-4,4).compare(".txt")){
         return true;
     }
     return false;
@@ -145,10 +145,13 @@ int main(int argc, const char * argv[])
                     //test
                     //cout<<"Option x activee"<<endl;
                     argx=true;
-                }
+                }else
                 if(nomOption.compare("h")==0){
                     cout << "Manuel ./analog Help" << endl;
                     return 2;
+                }else{
+                    cerr<<"Illegal option : " << nomOption <<endl;
+                    return 3;
                 }
                 
                     
@@ -160,7 +163,7 @@ int main(int argc, const char * argv[])
                 if(checkIfValidNameFile(argv[i])){
                     nomFichier = argv[i];
                 }else{
-                    cerr<<"Invalid file name, name must finish with .Log extension" << endl;
+                    cerr<<"Invalid file name, name must finish with .log or .txt extensions" << endl;
                     return 200;
                 }
             }else{
@@ -177,7 +180,9 @@ int main(int argc, const char * argv[])
         cerr<<"You must enter the name of a log file to execute this command" <<endl;
         return 220;
     }
-    
+    if(argl && !argg){
+        cout<<"Warning: option -l ignored because used without -g" << endl;
+    }
     Log monLog;
     Graph monGraph(nomGraph);
 
@@ -185,7 +190,7 @@ int main(int argc, const char * argv[])
         monLog.activerOptionX(); // Agit sur la commande lire
 	}
 	if(argt){
-        cout<<"Warning : only hits between " << heure <<"h and " << heure+1 << " have been taken into account" << endl;
+        cout<<"Warning : only hits between " << heure <<"h and " << heure+1 << "h have been taken into account" << endl;
         monLog.activerOptionT(heure);
 	}
     
