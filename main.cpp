@@ -185,7 +185,7 @@ int main(int argc, const char * argv[])
         monLog.activerOptionX(); // Agit sur la commande lire
 	}
 	if(argt){
-        cout<<"Warning : only hits between " << heure <<"h and " << heure+1 << "have been taken into account" << endl;
+        cout<<"Warning : only hits between " << heure <<"h and " << heure+1 << " have been taken into account" << endl;
         monLog.activerOptionT(heure);
 	}
     
