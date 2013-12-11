@@ -105,7 +105,8 @@ Sinon
         }
         else
         {
-            cerr<< "Impossible d'ouvrir le fichier" << s <<endl;
+            cerr<< "Impossible d'ouvrir le fichier " << s <<endl;
+            exit(44);
         }
 
         
