@@ -99,14 +99,14 @@ int main(int argc, const char * argv[])
                                 return 100;
                             }
                             //test
-                            cout<<"g active"<<endl;
+                            //cout<<"Option -g activee, Il ya bien un graph a creer dans le fichier :" << nomGraph << endl;
                         }
                         if(nomOption.compare("l")==0){
                             argl=true;
                             char* end;
                             nbHits = (int)strtol(argv[++i],&end,10);
                             if (*end){
-                                cerr<<"You need to specify a number" <<endl;
+                                cerr<<"You need to specify an integer number" <<endl;
                                 return 110;
                             }
                             if(nbHits<0){
@@ -114,14 +114,14 @@ int main(int argc, const char * argv[])
                                 return 111;
                             }
                             //test
-                            cout<<"l active"<<endl;
+                            //cout<<"Option -l activee, Le nombre de hits demande est :" << nbHits << endl;
                         }
                         if(nomOption.compare("t")==0){
                             argt=true;
                             char* end;
                             heure = (int)strtol(argv[++i],&end,10);
                             if (*end){
-                                cerr<<"You need to specify a number" <<endl;
+                                cerr<<"You need to specify an integer number" <<endl;
                                 return 120;
                             }
                             if(heure<0 || heure>23){
@@ -129,10 +129,10 @@ int main(int argc, const char * argv[])
                                 return 121;
                             }
                             //test
-                            cout<<"t active"<<endl;
+                            //cout << "Option -t activee, Heure prise en compte : " << heure << endl;
                         }
                     }else{
-                        cerr << "Option " << nomOption << "requires one argument." << std::endl;
+                        cerr << "Option " << nomOption << " requires one argument." << std::endl;
                         return 130;
                     }
                     
@@ -143,7 +143,7 @@ int main(int argc, const char * argv[])
                 //Options That Doesn't Need Params!
                 if(nomOption.compare("x")==0){
                     //test
-                    cout<<"x active"<<endl;
+                    //cout<<"Option x activee"<<endl;
                     argx=true;
                 }
                 if(nomOption.compare("h")==0){
@@ -159,8 +159,6 @@ int main(int argc, const char * argv[])
             if(i == argc-1){
                 if(checkIfValidNameFile(argv[i])){
                     nomFichier = argv[i];
-                    //test
-                    cout<<"nom Fichier : "<< nomFichier <<endl;
                 }else{
                     cerr<<"Invalid file name, name must finish with .Log extension" << endl;
                     return 200;
@@ -174,84 +172,46 @@ int main(int argc, const char * argv[])
         
     }
 
-
-/*
-	for(int i=1; argv[i] ;i++){
-		cout<< "argument"<< i << " <"<< argv[i]<<">" << endl;
-		if( string(argv[i]).compare("-g") == 0){
-			argg=true;
-			nomGraph = argv[i+1];
-			i++;
-		}
-        
-		if( string(argv[i]).compare("-l") == 0){
-			argl=true;
-			char* end;
-			nbHits = (int)strtol(argv[i+1],&end,10);
-			i++;
-		}
-        
-		if( string(argv[i]).compare("-x") == 0){
-			argx=true;
-		}
-        
-		if( string(argv[i]).compare("-t") == 0){
-			argt=true;
-			char* end;
-			heure = (int)strtol(argv[i+1],&end,10);
-			i++;
-		}
-        
-		if(i == (argc-1)){
-			nomFichier = argv[i];
-		}
-	}
-    */
     
-    
-	//faire default
-    
-	//cout << "Il y a " << argc << "arguments" << endl;
-
-    
+    if(nomFichier.empty()){
+        cerr<<"You must enter the name of a log file to execute this command" <<endl;
+        return 220;
+    }
     
     Log monLog;
     Graph monGraph(nomGraph);
 
 	if(argx){
-		cout << "Option -x activee" << endl;
         monLog.activerOptionX(); // Agit sur la commande lire
 	}
 	if(argt){
-		cout << "Option -t activee, Intervalle a prendre : " << heure << endl;
+        cout<<"Warning : only hits between " << heure <<"h and " << heure+1 << "have been taken into account" << endl;
         monLog.activerOptionT(heure);
 	}
     
 	//cout << "Le nom du fichier est :" << nomFichier << endl;
     //cout<< "Debut Lecture" <<endl;
     
-    const clock_t begin_time = clock();
+    //const clock_t begin_time = clock();
     // do something
     
     monLog.lire(nomFichier);
-    monLog.afficherDix();
     //monLog.testStructure();
     
     
     
     if(argl){
-		cout<<"Option -l activee, Le nombre de hits demande est :" << nbHits << endl;
         monGraph.activerOptionL(nbHits);
 	}
     if(argg){
-		cout<<"Option -g activee, Il ya bien un graph a creer dans le fichier :" << nomGraph << endl;
-        //monLog.genereGraphViz(monLog.structure, monLog.referencesTab);
+        cout<<"Dot-file " << nomGraph << " generated" << endl;
         monGraph.genereGraphViz(monLog.getStructure(), monLog.getReferencesTab());
-        monGraph.afficherGraph();
         monGraph.ecrireGraph();
 	}
-    std::cout << float( clock () - begin_time ) /  CLOCKS_PER_SEC << endl;
+    //std::cout << float( clock () - begin_time ) /  CLOCKS_PER_SEC << endl;
 
+    
+    monLog.afficherDix();
 
     return 0;
 }

@@ -228,7 +228,7 @@ AfficherTop10()
     vector< vector<int> >::iterator top10it;
     
     for (top10it = top10.begin(); top10it < top10.end(); top10it++) {
-        cout << referencesTab[top10[top10it-top10.begin()][0]] << " : " << top10[top10it-top10.begin()][1] << endl;
+        cout << referencesTab[top10[top10it-top10.begin()][0]] << " (" << top10[top10it-top10.begin()][1] << " hits)"<< endl;
     }
     
 } //----- Fin de afficherDix
