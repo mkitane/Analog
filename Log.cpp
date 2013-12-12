@@ -23,7 +23,7 @@
 //----------------------------------------------------------------- PUBLIC
 
 //----------------------------------------------------- Méthodes publiques
-void Log::lire(string s)
+void Log::lire()
 // Algorithme :
 /*
 chaine cible, referer
@@ -65,9 +65,9 @@ Sinon
     string referer;
     int heure;
     
-    if(s != "") {
+    if(nomFichier != "") {
         
-        ifstream file(s);
+        ifstream file(nomFichier);
         string temp;
         
         
@@ -105,7 +105,7 @@ Sinon
         }
         else
         {
-            cerr<< "Impossible d'ouvrir le fichier " << s <<endl;
+            cerr<< "Impossible d'ouvrir le fichier " << nomFichier <<endl;
             exit(44);
         }
 
@@ -291,13 +291,30 @@ vector<string> Log::getReferencesTab() const
 //------------------------------------------------- Surcharge d'opérateurs
 
 //-------------------------------------------- Constructeurs - destructeur
-Log::Log()
+Log::Log( string nmFichier)
 // Algorithme :
 //
 {
+    nomFichier=nmFichier; 
     optionX=false;
     optionT=false;
+#ifdef MAP
+    cout << "Appel au constructeur de <Log>" << endl;
+#endif
 } //----- Fin de Log
+
+Log::Log(const Log & unLog)
+{
+    nomFichier=unLog.nomFichier;
+    optionT=unLog.optionT;
+    optionX=unLog.optionX;
+    optionHeure=unLog.optionHeure;
+    structure = unLog.structure;
+    referencesTab = unLog.referencesTab;
+#ifdef MAP
+    cout << "Appel au constructeur de copie de <Log>" << endl;
+#endif
+}//-- Fin de Log
 
 Log::~Log ( )
 // Algorithme :

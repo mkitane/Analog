@@ -183,7 +183,7 @@ int main(int argc, const char * argv[])
     if(argl && !argg){
         cout<<"Warning: option -l ignored because used without -g" << endl;
     }
-    Log monLog;
+    Log monLog(nomFichier);
     Graph monGraph(nomGraph);
 
 	if(argx){
@@ -200,7 +200,7 @@ int main(int argc, const char * argv[])
     //const clock_t begin_time = clock();
     // do something
     
-    monLog.lire(nomFichier);
+    monLog.lire();
     //monLog.testStructure();
     
     
@@ -218,6 +218,7 @@ int main(int argc, const char * argv[])
     
     monLog.afficherDix();
 
+    
     return 0;
 }
 
