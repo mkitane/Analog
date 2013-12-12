@@ -57,6 +57,7 @@ Si(le fichier est lu)
 
 Sinon
     cerr : "Impossible de lire le fichier"
+    arret(code erreur)
 
 
 */
@@ -306,6 +307,8 @@ Log::Log( string nmFichier)
 } //----- Fin de Log
 
 Log::Log(const Log & unLog)
+// Algorithme :
+//
 {
     nomFichier=unLog.nomFichier;
     optionT=unLog.optionT;
