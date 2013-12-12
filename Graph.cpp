@@ -110,6 +110,7 @@ Graph::Graph (string nmFichier )
 // Algorithme :
 //
 {
+	nbHits = -1 ;
     nomFichier = nmFichier;
     optionL=false;
 #ifdef MAP
