@@ -27,29 +27,28 @@
 void Log::lire()
 // Algorithme :
 /*
-chaine cible, referer
-entier heure
+ligneLog l
  
 ouvrirfichier(addresse du fichier)
  
 Si(le fichier est lu)
     tant que (il reste des lignes dans le fichier)
-        AnalyserLaLigne(ligne actuelle, &cible, &referer, &heure)
+        AnalyserLaLigne(ligne actuelle, &l)
  
         Si(option t active)
             Si(heure = heureoption)
-                Remplir(cible, referer, heure)
+                Remplir(l.cible, l.referer, l.heure)
             fin Si
         Sinon Si(option x active)
             Si(extension de cible autorisee)
-                Remplir(cible, referer, heure)
+            Remplir(l.cible, l.referer, l.heure)
             fin Si
         Sinon Si(option x et t actives)
             Si(extension de cible autorisee ET heure = heureoption)
-                Remplir(cible, referer, heure)
+                Remplir(l.cible, l.referer, l.heure)
             fin Si
         Sinon
-            Remplir(cible, referer, heure)
+            Remplir(l.cible, l.referer, l.heure)
         fin Si
     fin Tant que
  
@@ -336,40 +335,29 @@ bool Log::analyseLigne (string ligne, ligneLog *l)
 // Algorithme :
 //
 //
+//
 //Chaine urlLocale "http://intranet-if.insa-lyon.fr"
 //
-//entier = nombreOccurenceGuillemets = 0
+// adresseIp = On recupère du Debut de la ligne jusqu'au premier espace
+// int i = Position de la premiere occurence du caractere ':'
+// heure = sousstring(i+1 jusqua i+2);  // On recupere les deux prochains caracteres
 //
-//Tant que (il reste des caracteres dans la ligne a analyser)
-//      Si caractere(i)==':' et heure n'a pas encore ete trouvee
-//          heure = sousstring(i+1 jusqua i+2);  // On recupere les deux prochains caracteres
-//      Fin si
+// date = Position du caractère [ jusqu'au caractère ]
+//  typeAction = Prochain caractère " \" " jusqu'au prochain espace
+//  cible = Position fin de typeAction jusqu'a la position du prochain espace
 //
-//      Si caractere(i)=' " ' et PremiereOccurenceGuillemet
-//          int debutCible = PremiereOccurenceDeLespace
-//          int finCible = DeuxiemeOccurenceDeLespace
-//          cible = soustring debutCible jusqua finCible
-//      FinSi
+//  curseur = On se positionne au prochain guillemet " \" "
+//  returnCode = Position curseur jusqu'a la position du prochain espace
 //
-//      Si caractere(i) = ' " ' et DeuxiemeOccurenceGuillemet
-//          int debutCible = TroisiemeOccurenceGuillemets
-//          int finCible = QuatriemeOccurenceGuillemets
-//          referer = sousstring (i+1 jusqua finCible)
+//  referer = Position du prochain guillemet " \" " jusqu'a la position des prochains guillemets " \" "
 //
-//          Si referer contient la baseUrl
-//              referer= referer-baseUrl
-//          FinSI
-//      FinSi
-//FinTantQue
+//  Si referer contient la urlLocale
+//              referer= referer-urlLocale
+//  FinSI
 //
 //
 //FinMethode
 {
-    
-
-    
-    //cout<< UrlLocale << endl;
-    //cout << SizeUrlLocale << endl;
     
 
     size_t longueur = ligne.length();
