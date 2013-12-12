@@ -21,6 +21,8 @@ static const size_t sizeUrlLocale = urlLocale.length();
 static const char sepPointPoint = ':';
 static const char sepGuillemets = '"';
 static const char sepEspace = ' ' ;
+static const char sepCrochetOuvrant = '[' ;
+static const char sepCrochetFermant = ']' ;
 static const string extensionAchercher = "css|js|jpg|jpeg|gif|png|ico";  //Pour ne pas ecrire un if super long
 
 //------------------------------------------------------------------ Types
@@ -36,7 +38,7 @@ struct ligneLog {
     int heure;
     string typeAction;
     string cible;
-    string returnCode;
+    int returnCode;
     string referer;
 };
 

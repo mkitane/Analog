@@ -10,56 +10,12 @@
 #include <stdlib.h>     /* strtol */
 #include "Log.h"
 #include "Graph.h"
+#include "Commande.h"
 #include <ctime>
 
 using namespace std;
+using namespace commande;
 
-bool checkIfValidNameFile(string s){
-    if (s.size() <= 4) {
-        return false;
-    }
-    if(s.substr(s.size()-4,4).compare(".log") ==0 || s.substr(s.size()-4,4).compare(".txt") == 0){
-        return true;
-    }
-    return false;
-    
-    
-}
-bool checkIfValidDotFile(string s){
-    if (s.size() <= 4) {
-        return false;
-    }
-    if(s.substr(s.size()-4,4).compare(".dot") ==0){
-        return true;
-    }
-    return false;
-}
-bool checkIfOption(string s){
-    if(s[0]=='-'){
-        return true;
-    }
-    return false;
-}
-
-bool checkIfNeedParam(string arg){
-    if(arg.compare("g")==0){
-        return true;
-    }
-    if(arg.compare("l")==0){
-        return true;
-    }
-    if(arg.compare("t")==0){
-        return true;
-    }
-    return false;
-}
-bool checkIfValidParam(string param){
-    //si n'a pas la syntaxe d'une option et n'a pa la syntaxe du fichier Log
-    return (!checkIfOption(param) && !checkIfValidNameFile(param));
-}
-string getNameOfOption(string s){
-    return s.substr(1,s.size());
-}
 
 int main(int argc, const char * argv[])
 {
@@ -197,7 +153,7 @@ int main(int argc, const char * argv[])
 	//cout << "Le nom du fichier est :" << nomFichier << endl;
     //cout<< "Debut Lecture" <<endl;
     
-    const clock_t begin_time = clock();
+    //const clock_t begin_time = clock();
     // do something
     
     monLog.lire();
@@ -213,7 +169,7 @@ int main(int argc, const char * argv[])
         monGraph.genereGraphViz(monLog.getStructure(), monLog.getReferencesTab());
         monGraph.ecrireGraph();
 	}
-    cout << float( clock () - begin_time ) /  CLOCKS_PER_SEC << endl;
+    //cout << float( clock () - begin_time ) /  CLOCKS_PER_SEC << endl;
 
     
     monLog.afficherDix();
