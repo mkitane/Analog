@@ -111,7 +111,7 @@ namespace commande {
     
     void generateMan()
     {
-        cout << "Name\r\n\
+        cout << "Nom\r\n\
 ./analog —— ANAlyseur de fichiers LOG Apache\r\n\
 \r\n\
 Synopsis\r\n\
