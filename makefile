@@ -9,7 +9,7 @@ RMFLAGS = -f
 analog : Log.o Graph.o main.o
 	g++ -std=c++11 -o analog main.o Graph.o Log.o
 
-main.o : main.cpp Log.h Graph.h
+main.o : main.cpp Log.h Graph.h Commande.h
 	g++ -std=c++11 -c main.cpp
 
 Graph.o : Graph.cpp Graph.h Log.h
@@ -18,6 +18,9 @@ Graph.o : Graph.cpp Graph.h Log.h
 
 Log.o : Log.h Log.cpp
 	g++ -std=c++11 -c Log.cpp
+
+Commande.o : Commande.h Commande.cpp
+	g++ -std=c++11 -c Commande.cpp 
 
 efface :
 	rm -f *.o analog core
