@@ -369,14 +369,19 @@ bool Log::analyseLigne (string ligne, ligneLog *l)
     
 
     size_t longueur = ligne.length();
+    char* end;
+
     
     int finAdresseIp = chercherChar(ligne,longueur, 0, sepEspace);
     
+    int debutDate = chercherChar(ligne, longueur, finAdresseIp, sepCrochetOuvrant)+1;
+    int debutHeure = chercherChar(ligne,longueur, debutDate, sepPointPoint)  +1;
+    int finDate = chercherChar(ligne, longueur, debutHeure, sepCrochetFermant);
     
-    int debutHeure = chercherChar(ligne,longueur, finAdresseIp, sepPointPoint)  +1;
-    char* end;
     
-    int debutTypeAction = chercherChar(ligne, longueur, finAdresseIp, sepGuillemets)  +1;
+
+    
+    int debutTypeAction = chercherChar(ligne, longueur, debutHeure, sepGuillemets)  +1;
     int finTypeAction = chercherChar(ligne, longueur, debutTypeAction, sepEspace);
     
     int debutCible = chercherChar(ligne, longueur, finTypeAction, sepEspace) +1;
@@ -388,11 +393,15 @@ bool Log::analyseLigne (string ligne, ligneLog *l)
     int finReturnCode = chercherChar(ligne, longueur, debutReturnCode+1, sepEspace);
     
     
+    int debutReferer = chercherChar(ligne,longueur, finReturnCode, sepGuillemets) + 1;
+    int finReferer = chercherChar(ligne,longueur, debutReferer,sepGuillemets);
     
+    
+    l->date=ligne.substr(debutDate, finDate-debutDate );
     l->heure = (int)strtol(ligne.substr(debutHeure,2).c_str(),&end,10);
     l->adresseIP=ligne.substr(0,finAdresseIp);
     l->typeAction=ligne.substr(debutTypeAction,finTypeAction-debutTypeAction );
-    l->returnCode=ligne.substr(debutReturnCode,finReturnCode-debutReturnCode );
+    l->returnCode=(int)strtol(ligne.substr(debutReturnCode,finReturnCode-debutReturnCode ).c_str(), &end,10);
     l->cible = ligne.substr(debutCible,finCible-debutCible );
     
 
@@ -417,10 +426,6 @@ bool Log::analyseLigne (string ligne, ligneLog *l)
     
     
     //PartieReferer
-    int debutReferer = chercherChar(ligne,longueur, finReturnCode, sepGuillemets) + 1;
-    int finReferer = chercherChar(ligne,longueur, debutReferer,sepGuillemets);
-    
-    
     string refererProbable = ligne.substr(debutReferer,(finReferer-debutReferer));
     
     if(refererProbable.compare(0,sizeUrlLocale,urlLocale) != 0){
@@ -429,12 +434,9 @@ bool Log::analyseLigne (string ligne, ligneLog *l)
         l->referer = refererProbable.substr(sizeUrlLocale,refererProbable.length());
     }
 
-    
-    //cout << "Referer :" << *referer << " |||||||||  Cible : " << *cible<< "|||||||| Heure " << *heure<<endl;
-    return true;
-    
-    
+    /*
     cout<<"------------"<<endl;
+    cout<<l->date<<endl;
     cout<<l->heure<<endl;
     cout<<l->adresseIP<<endl;
     cout<<l->typeAction<<endl;
@@ -442,131 +444,11 @@ bool Log::analyseLigne (string ligne, ligneLog *l)
     cout<<l->cible<<endl;
     cout<<l->referer<<endl;
     cout<<"------------"<<endl;
-    
-    //192.168.0.0 - - [08/Sep/2012:11:16:02 +0200] "GET /temps/4IF16.html HTTP/1.1" 200 12106 "http://intranet-if.insa-lyon.fr/temps/4IF15.html" "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:14.0) Gecko/20100101 Firefox/14.0.1"
-}
-
-/*
-bool Log::analyseLigne (string ligne, string *cible, string *referer, int *heure)
-// Algorithme :
-//
-//
-//Chaine urlLocale "http://intranet-if.insa-lyon.fr"
-//
-//entier = nombreOccurenceGuillemets = 0
-//
-//Tant que (il reste des caracteres dans la ligne a analyser)
-//      Si caractere(i)==':' et heure n'a pas encore ete trouvee
-//          heure = sousstring(i+1 jusqua i+2);  // On recupere les deux prochains caracteres
-//      Fin si
-//
-//      Si caractere(i)=' " ' et OccurenceGuillemet = 0
-//          int debutCible = PremiereOccurenceDeLespace
-//          int finCible = DeuxiemeOccurenceDeLespace
-//          cible = soustring debutCible jusqua finCible
-//          OccurenceGuillemets++ ;
-//      FinSi
-//
-//      Si caractere(i) = ' " ' et OccurenceGuillemet = 1
-//          int finCible = PremiereOccurenceGuillemets
-//          referer = sousstring (i+1 jusqua finCible)
-//
-//          Si referer contient la baseUrl
-//              referer= referer-baseUrl
-//          FinSI
-//      FinSi
-//FinTantQue
-//
-//
-//FinMethode
- 
- 
- 
-{
-    //bool analyseLigne(){
-    static string urlLocale = "http://intranet-if.insa-lyon.fr";
-    static size_t sizeUrlLocale = urlLocale.length();
-    
-    //cout<< UrlLocale << endl;
-    //cout << SizeUrlLocale << endl;
-    
-    size_t longueur = ligne.length();
-    
-    int nombreOccurenceGuillemets = 0;
-    int heureTrouvee = false;
-    
-    for(size_t i=0; i< longueur ; i++){
-        if( ligne.at(i) ==':'){
-            if(heureTrouvee == false){
-                char* end;
-                *heure = (int)strtol(ligne.substr(i+1,2).c_str(),&end,10);
-                
-                heureTrouvee=true;
-                //cout<<"Lheure " << *heure<<endl;
-            }
-        }
-        if(ligne.at(i) == '"' && nombreOccurenceGuillemets==0 ){
-            int debut =(int)i ; //initilisation pour eviter erreurs
-            int fin = (int)longueur; //initilisation pour eviter erreurs
-            
-            
-            
-            //On cherche le / symbolisant le debut de ladresse
-            for(size_t j=i; j<longueur;j++){
-                if(ligne.at(j) == '/'){
-                    debut = (int)j;
-                    
-                    //on cherche lespace symbolisant la fin de ladresse
-                    for(size_t k=j; k<longueur;k++){
-                        if(ligne.at(k) == ' '){
-                            fin = (int)k;
-                            
-                            
-                            //On cherche les guillemets fermants
-                            //Et on positionne notre curseur directement la bas
-                            i=chercherGuillemetsFermants(ligne,(int)k)+1;
-                            if(i!=0){
-                                nombreOccurenceGuillemets++;
-                            }
-                            break;
-                        }
-                    }
-                    
-                    break;
-                }
-            }
-            
-            *cible = ligne.substr(debut,(fin-debut));
-            //cout<<"la cible est :  "<< *cible <<endl;
-        }
-        
-        
-        if(ligne.at(i) == '"' && nombreOccurenceGuillemets==1 ){
-            int debutRef=(int)i+1;
-            int finRef = chercherGuillemetsFermants(ligne,debutRef);
-            nombreOccurenceGuillemets++;
-            
-            string refererProbable = ligne.substr(debutRef,(finRef-debutRef));
-            
-            //cout<<"Le Referer Probable est :"<<refererProbable<<endl;
-            if(refererProbable.compare(0,sizeUrlLocale,urlLocale) != 0){
-                //Pas les memes
-                *referer = refererProbable;
-            }else{
-                *referer = refererProbable.substr(sizeUrlLocale,refererProbable.length());
-            }
-            //cout<<"le referer est :  "<< *referer <<endl;
-            break;
-        }
-    }
-    
-    //cout << "Referer :" << *referer << " |||||||||  Cible : " << *cible<< "|||||||| Heure " << *heure<<endl;
-    
+    */
     
     return true;
-} // ----- Fin de analyseLigne
-*/
-
+    
+}
 
 
 
