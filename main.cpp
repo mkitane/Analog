@@ -103,7 +103,7 @@ int main(int argc, const char * argv[])
                     argx=true;
                 }else
                 if(nomOption.compare("h")==0){
-                    cout << "Manuel ./analog Help" << endl;
+                    generateMan();
                     return 0;
                 }else{
                     cerr<<"Illegal option : " << nomOption <<endl;

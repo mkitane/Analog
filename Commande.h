@@ -59,5 +59,10 @@ namespace commande{
     // Contrat :
     // Lui donner un nom commençant avec un tiret, IE c'est bien une option
     
+    void generateMan();
+    // Mode d'emploi :
+    // Genere le manuel pour l'option -h
+    // Contrat :
+    //
 }
 #endif /* defined(__tp2__Commande__) */

@@ -108,5 +108,10 @@ namespace commande {
     {
         return s.substr(1,s.size());
     }
+    
+    void generateMan()
+    {
+        
+    }
 } //Fin du namespace commande
 
