@@ -34,11 +34,11 @@ class Log
     
 public:
     //----------------------------------------------------- Méthodes publiques
-    void lire(string s);
+    void lire();
     // Mode d'emploi :
     // Permet de lire un fichier .Log et de remplir la structure de donnes au fur et a mesure
     // Contrat :
-    // Prend en parametre un string qui contient l'adresse absolue ou relative du fichier a lire. Ne doit pas être vide
+    // L'adresse du fichier a lire doit être valide
     
     void testStructure();
     // Mode d'emploi :
@@ -56,7 +56,7 @@ public:
     // Mode d'emploi :
     // Permet d'activer l'option T
     // Contrat :
-    // Il suffit d'appeler la methode, aucun parametre à passer
+    // Il suffit d'appeler la methode avec les heures à considerer
     
     bool isAsset(string s);
     // Mode d'emploi :
@@ -72,7 +72,7 @@ public:
     
     map< size_t, map < size_t, tabHeure> > getStructure() const;
     // Mode d'emploi :
-    // Renvoie la structure (access depuis l'exterieur
+    // Renvoie la structure (access depuis l'exterieur)
     // Contrat :
     // Aucun parametre
     
@@ -92,7 +92,7 @@ public:
     // Contrat :
     //
     
-    Log();
+    Log( string nmFichier);
     // Mode d'emploi :
     //
     // Contrat :
@@ -130,9 +130,9 @@ protected:
     bool optionX;
     bool optionT;
     int optionHeure;
+    string nomFichier;
     
     vector<string> referencesTab;
-    vector<int> referencesHits;
     map< size_t, map < size_t, tabHeure> > structure;
 };
 

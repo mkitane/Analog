@@ -96,7 +96,10 @@ Graph::Graph ( const Graph & unGraph )
 // Algorithme :
 //
 {
-    optionL=false;
+    optionL=unGraph.optionL;
+    nomFichier = unGraph.nomFichier;
+    digraph= unGraph.digraph;
+    nbHits=unGraph.nbHits;
 #ifdef MAP
     cout << "Appel au constructeur de copie de <Graph>" << endl;
 #endif
