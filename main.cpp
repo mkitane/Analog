@@ -86,7 +86,6 @@ int main(int argc, const char * argv[])
     }
     
     for(int i=1; argv[i]; i++){
-        cout<<argv[i]<<endl;
         if(checkIfOption(argv[i])==true){
             string nomOption = getNameOfOption(argv[i]);
             if(checkIfNeedParam(nomOption)==true){
@@ -198,7 +197,7 @@ int main(int argc, const char * argv[])
 	//cout << "Le nom du fichier est :" << nomFichier << endl;
     //cout<< "Debut Lecture" <<endl;
     
-    //const clock_t begin_time = clock();
+    const clock_t begin_time = clock();
     // do something
     
     monLog.lire();
@@ -214,7 +213,7 @@ int main(int argc, const char * argv[])
         monGraph.genereGraphViz(monLog.getStructure(), monLog.getReferencesTab());
         monGraph.ecrireGraph();
 	}
-    //std::cout << float( clock () - begin_time ) /  CLOCKS_PER_SEC << endl;
+    cout << float( clock () - begin_time ) /  CLOCKS_PER_SEC << endl;
 
     
     monLog.afficherDix();

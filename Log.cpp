@@ -61,9 +61,7 @@ Sinon
 */
 {
     
-    string cible;
-    string referer;
-    int heure;
+    ligneLog l;
     
     if(nomFichier != "") {
         
@@ -73,28 +71,29 @@ Sinon
         
         if(file.is_open()){
             while(getline(file, temp)) {
-                analyseLigne(temp, &cible, &referer, &heure);
+                analyseLigne(temp, &l);
+                
                 switch (1*optionT + 10*optionX) {
                     case 0:
                         //Aucune des deux options n'est activee
-                        remplir(cible, referer, heure);
+                        remplir(l.cible, l.referer, l.heure);
                         break;
                     case 1:
                         //OptionTSeulement activee
-                        if(heure == optionHeure) {
-                            remplir(cible, referer, heure);
+                        if(l.heure == optionHeure) {
+                            remplir(l.cible, l.referer, l.heure);
                         }
                         break;
                     case 10:
                         //OptionX Seulement Activee
-                        if(isAsset(cible) == false) {
-                            remplir(cible, referer, heure);
+                        if(isAsset(l.cible) == false) {
+                            remplir(l.cible, l.referer, l.heure);
                         }
                         break;
                     case 11:
                         //OptionX et T activee
-                        if(isAsset(cible) == false && heure==optionHeure) {
-                            remplir(cible, referer, heure);
+                        if(isAsset(l.cible) == false && l.heure==optionHeure) {
+                            remplir(l.cible, l.referer, l.heure);
                         }
                         break;
                     default:
@@ -251,7 +250,10 @@ void Log::activerOptionT(int h)
 
 bool Log::isAsset(string s)
 // Algorithme :
-//
+//Debut Methode
+//  Recupere lextension du string
+//  Verifie si elle correspond aux extensions interdites
+//Fin Methode
 {
     
     string extension;
@@ -262,7 +264,6 @@ bool Log::isAsset(string s)
         }
     }
     
-    string extensionAchercher = "css|js|jpg|jpeg|gif|png|ico";  //Pour ne pas ecrire un if super long
     
     //si == npos , il n'a pa trouve lextension
     if(extensionAchercher.find(extension) != std::string::npos){
@@ -327,7 +328,7 @@ Log::~Log ( )
 //------------------------------------------------------------------ PRIVE
 
 //----------------------------------------------------- Méthodes protégées
-bool Log::analyseLigne (string ligne, string *cible, string *referer, int *heure)
+bool Log::analyseLigne (string ligne, ligneLog *l)
 // Algorithme :
 //
 //
@@ -361,25 +362,47 @@ bool Log::analyseLigne (string ligne, string *cible, string *referer, int *heure
 //FinMethode
 {
     
-    static string urlLocale = "http://intranet-if.insa-lyon.fr";
-    static size_t sizeUrlLocale = urlLocale.length();
-    static char sepPointPoint = ':';
-    static char sepGuillemets = '"';
-    static char sepEspace = ' ' ;
+
     
     //cout<< UrlLocale << endl;
     //cout << SizeUrlLocale << endl;
     
+
     size_t longueur = ligne.length();
     
+    int finAdresseIp = chercherChar(ligne,longueur, 0, sepEspace);
+    
+    
+    int debutHeure = chercherChar(ligne,longueur, finAdresseIp, sepPointPoint)  +1;
+    char* end;
+    
+    int debutTypeAction = chercherChar(ligne, longueur, finAdresseIp, sepGuillemets)  +1;
+    int finTypeAction = chercherChar(ligne, longueur, debutTypeAction, sepEspace);
+    
+    int debutCible = chercherChar(ligne, longueur, finTypeAction, sepEspace) +1;
+    int finCible = chercherChar(ligne, longueur, debutCible, sepEspace);
+    int finGuillemetsCible = chercherChar(ligne, longueur, finCible,sepGuillemets)+1;
 
     
-    int debutHeure = chercherChar(ligne,longueur, 0, sepPointPoint)+1;
+    int debutReturnCode = finGuillemetsCible+1;
+    int finReturnCode = chercherChar(ligne, longueur, debutReturnCode+1, sepEspace);
+    
+    
+    
+    l->heure = (int)strtol(ligne.substr(debutHeure,2).c_str(),&end,10);
+    l->adresseIP=ligne.substr(0,finAdresseIp);
+    l->typeAction=ligne.substr(debutTypeAction,finTypeAction-debutTypeAction );
+    l->returnCode=ligne.substr(debutReturnCode,finReturnCode-debutReturnCode );
+    l->cible = ligne.substr(debutCible,finCible-debutCible );
+    
+
+    /*
+    int debutHeure = chercherChar(ligne,longueur, finAdresseIp, sepPointPoint)+1;
     char* end;
-    *heure = (int)strtol(ligne.substr(debutHeure,2).c_str(),&end,10);
+    l->heure = (int)strtol(ligne.substr(debutHeure,2).c_str(),&end,10);
     
     
-    
+
     int debutCible = chercherChar(ligne, longueur, debutHeure+2 ,sepGuillemets) + 1;
     debutCible = chercherChar(ligne, longueur, debutCible, sepEspace)+1;
     int finCible = chercherChar(ligne, longueur, debutCible, sepEspace);
@@ -387,30 +410,40 @@ bool Log::analyseLigne (string ligne, string *cible, string *referer, int *heure
 
     
     
-    *cible = ligne.substr(debutCible,(finCible-debutCible));
+    l->cible = ligne.substr(debutCible,(finCible-debutCible));
 
-    
+    */
     
     
     
     //PartieReferer
-    int debutReferer = chercherChar(ligne,longueur, finGuillemetsCible, sepGuillemets) + 1;
+    int debutReferer = chercherChar(ligne,longueur, finReturnCode, sepGuillemets) + 1;
     int finReferer = chercherChar(ligne,longueur, debutReferer,sepGuillemets);
     
     
     string refererProbable = ligne.substr(debutReferer,(finReferer-debutReferer));
     
     if(refererProbable.compare(0,sizeUrlLocale,urlLocale) != 0){
-        *referer = refererProbable;
+        l->referer = refererProbable;
     }else{
-        *referer = refererProbable.substr(sizeUrlLocale,refererProbable.length());
+        l->referer = refererProbable.substr(sizeUrlLocale,refererProbable.length());
     }
 
     
     //cout << "Referer :" << *referer << " |||||||||  Cible : " << *cible<< "|||||||| Heure " << *heure<<endl;
-
     return true;
     
+    
+    cout<<"------------"<<endl;
+    cout<<l->heure<<endl;
+    cout<<l->adresseIP<<endl;
+    cout<<l->typeAction<<endl;
+    cout<<l->returnCode<<endl;
+    cout<<l->cible<<endl;
+    cout<<l->referer<<endl;
+    cout<<"------------"<<endl;
+    
+    //192.168.0.0 - - [08/Sep/2012:11:16:02 +0200] "GET /temps/4IF16.html HTTP/1.1" 200 12106 "http://intranet-if.insa-lyon.fr/temps/4IF15.html" "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:14.0) Gecko/20100101 Firefox/14.0.1"
 }
 
 /*

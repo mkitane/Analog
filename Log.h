@@ -16,6 +16,12 @@
 using namespace std;
 
 //------------------------------------------------------------- Constantes
+static const string urlLocale = "http://intranet-if.insa-lyon.fr";
+static const size_t sizeUrlLocale = urlLocale.length();
+static const char sepPointPoint = ':';
+static const char sepGuillemets = '"';
+static const char sepEspace = ' ' ;
+static const string extensionAchercher = "css|js|jpg|jpeg|gif|png|ico";  //Pour ne pas ecrire un if super long
 
 //------------------------------------------------------------------ Types
 
@@ -31,7 +37,6 @@ struct ligneLog {
     string typeAction;
     string cible;
     string returnCode;
-    string quantiteDonnee;
     string referer;
 };
 
@@ -119,7 +124,7 @@ public:
     
 protected:
     //----------------------------------------------------- Méthodes protégées
-    bool analyseLigne(string ligne, string *cible, string *referer, int *heure);
+    bool analyseLigne(string ligne, ligneLog *l);
     // Mode d'emploi :
     // Analyse la ligne passee en parametre a partir de laquelle elle renseigne les variables cible, referer et heure
     // Contrat :
