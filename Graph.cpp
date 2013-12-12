@@ -293,7 +293,7 @@ string Graph::genereGraphVizSansOptionL(map<size_t, map<size_t,tabHeure> > arbre
     string phrase = "digraph {\n";
     
     
-	for (int i=0; i<index.size(); i++){
+	for (int i=0; i<(int)index.size(); i++){
         
 		ostringstream convert;
         

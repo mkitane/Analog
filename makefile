@@ -6,8 +6,8 @@ CLEAN = efface
 CPPFLAGS = g++ -std=c++1 -c
 RMFLAGS = -f
 
-analog : Log.o Graph.o main.o
-	g++ -std=c++11 -o analog main.o Graph.o Log.o
+analog : Log.o Graph.o main.o Commande.o
+	g++ -std=c++11 -o analog main.o Graph.o Log.o Commande.o
 
 main.o : main.cpp Log.h Graph.h Commande.h
 	g++ -std=c++11 -c main.cpp

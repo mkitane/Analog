@@ -14,6 +14,7 @@
 #include <fstream>
 #include <sstream>      // std::ostringstream
 #include <stdlib.h>     /* strtol */
+#include <algorithm>  //std::sort
 
 //------------------------------------------------------ Include personnel
 #include "Log.h"
@@ -118,7 +119,7 @@ void Log::testStructure()
 //
 {
     
-    for(int i = 0; i < referencesTab.size(); i++) {
+    for(int i = 0; i < (int)referencesTab.size(); i++) {
         //  cout << referencesTab[i] << endl;
     }
     
