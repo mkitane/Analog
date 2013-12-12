@@ -1,0 +1,2 @@
+cd ../
+analog -l 3.5 Tests/Test4l/court.log

@@ -1,0 +1,2 @@
+cd ../
+analog -t abc Tests/Test8t/court.log

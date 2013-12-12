@@ -1,0 +1,2 @@
+cd ../
+analog -x Tests/Test6x/court.log

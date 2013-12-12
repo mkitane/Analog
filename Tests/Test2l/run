@@ -1,0 +1,2 @@
+cd ../
+analog -l -x Tests/Test2l/court.log

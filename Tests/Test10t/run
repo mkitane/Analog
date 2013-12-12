@@ -1,0 +1,2 @@
+cd ../
+analog -t 25 Tests/Test10t/court.log

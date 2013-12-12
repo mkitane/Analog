@@ -1,0 +1,2 @@
+cd ../
+analog -l 5 -g Tests/Test5l/court.dot Tests/Test5l/court.log

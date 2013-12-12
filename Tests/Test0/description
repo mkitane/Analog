@@ -1,0 +1,3 @@
+Ce test permet de vérifier la production d'un fichier en sortie du programme testé
+On lance un test sans spécifier aucun paramètre
+Le test devrait ressortir une erreur
