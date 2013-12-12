@@ -104,7 +104,7 @@ int main(int argc, const char * argv[])
                 }else
                 if(nomOption.compare("h")==0){
                     cout << "Manuel ./analog Help" << endl;
-                    return 2;
+                    return 0;
                 }else{
                     cerr<<"Illegal option : " << nomOption <<endl;
                     return 3;
