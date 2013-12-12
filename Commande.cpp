@@ -1,12 +1,19 @@
-//
-//  Commande.cpp
-//  tp2
-//
-//  Created by Mehdi Kitane on 12/12/2013.
-//  Copyright (c) 2013 Mehdi Kitane. All rights reserved.
-//
+/*************************************************************************
+ Commande  -  description
+ -------------------
+ début                : 28 nov. 2013
+ copyright            : (C) 2013 par Mehdi et Karim
+ *************************************************************************/
 
+//---------- Réalisation du namespace <commande> (fichier Commande.cpp) -------
+
+//---------------------------------------------------------------- INCLUDE
+
+//-------------------------------------------------------- Include système
+
+//------------------------------------------------------ Include personnel
 #include "Commande.h"
+
 
 namespace commande {
     bool checkIfValidNameFile(string s){
