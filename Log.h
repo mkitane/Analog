@@ -140,7 +140,7 @@ protected:
     
     void remplir(string cible, string referer, int heure);
     // Mode d'emploi :
-    // Rempli la structure de donnees et l'index a partir de la cible, referer et heure
+    // Remplis la structure de donnees et l'index a partir de la cible, referer et heure
     // Contrat :
     // parametres non vides et heure entre 0 et 24
 

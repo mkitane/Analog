@@ -25,39 +25,39 @@ namespace commande{
     //----------------------------------------------------------------- PUBLIC
     bool checkIfValidNameFile(string s);
     // Mode d'emploi :
-    // Permet de lire un fichier .Log et de remplir la structure de donnes au fur et a mesure
+    //Vérifie que le nom de fichier inséré à la fin de la commande correspond bien à un fichier .log ou .txt.
     // Contrat :
     //
     
     bool checkIfValidDotFile(string s);
     // Mode d'emploi :
-    // Permet de lire un fichier .Log et de remplir la structure de donnes au fur et a mesure
+    //Vérifie que le paramètre de l’option -g correspond bien à un fichier .dot.     // Contrat :
     // Contrat :
-    // L'adresse du fichier a lire doit être valide
+    //
     
     bool checkIfOption(string s);
     // Mode d'emploi :
-    // Permet de lire un fichier .Log et de remplir la structure de donnes au fur et a mesure
+    //Vérifie si une chaine de caractère passée en paramètre correspond à une option et récupère le paramètre pour certaines options. Retourne vrai si la chaine de caractères est une option.
     // Contrat :
-    // L'adresse du fichier a lire doit être valide
+    //
     
     bool checkIfNeedParam(string arg);
     // Mode d'emploi :
-    // Permet de lire un fichier .Log et de remplir la structure de donnes au fur et a mesure
+    //Vérifie si une option a besoin d’un paramètre.
     // Contrat :
-    // L'adresse du fichier a lire doit être valide
+    //
     
     bool checkIfValidParam(string param);
     // Mode d'emploi :
-    // Permet de lire un fichier .Log et de remplir la structure de donnes au fur et a mesure
+    //Vérifie si la syntaxe d’un paramètre d'une option est valide, si oui retourne vrai.
     // Contrat :
-    // L'adresse du fichier a lire doit être valide
+    // 
     
     string getNameOfOption(string s);
     // Mode d'emploi :
-    // Permet de lire un fichier .Log et de remplir la structure de donnes au fur et a mesure
+    //Retourne le nom de l’option sans le tiret qui la précède.
     // Contrat :
-    // L'adresse du fichier a lire doit être valide
+    // Lui donner un nom commençant avec un tiret, IE c'est bien une option
     
 }
 #endif /* defined(__tp2__Commande__) */
