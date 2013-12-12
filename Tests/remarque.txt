@@ -1,0 +1,2 @@
+L'executable analog doit être place a la racine du projet pour que les tests marchent.
+Les tests sont donc de la forme ../../analog etc..
