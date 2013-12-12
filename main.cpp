@@ -18,7 +18,7 @@ bool checkIfValidNameFile(string s){
     if (s.size() <= 4) {
         return false;
     }
-    if(s.substr(s.size()-4,4).compare(".log") ==0 || s.substr(s.size()-4,4).compare(".txt")){
+    if(s.substr(s.size()-4,4).compare(".log") ==0 || s.substr(s.size()-4,4).compare(".txt") == 0){
         return true;
     }
     return false;
@@ -86,6 +86,7 @@ int main(int argc, const char * argv[])
     }
     
     for(int i=1; argv[i]; i++){
+        cout<<argv[i]<<endl;
         if(checkIfOption(argv[i])==true){
             string nomOption = getNameOfOption(argv[i]);
             if(checkIfNeedParam(nomOption)==true){

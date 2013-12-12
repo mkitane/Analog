@@ -24,6 +24,17 @@ using namespace std;
 // Cette classe contient un ensemble de methodes permettant de manipuler un fichier .Log : le lire, identifier et stocker les informations necessaires dans une structure appropriee
 //
 //------------------------------------------------------------------------
+struct ligneLog {
+    string adresseIP;
+    string date;
+    int heure;
+    string typeAction;
+    string cible;
+    string returnCode;
+    string quantiteDonnee;
+    string referer;
+};
+
 struct tabHeure {
     int tab[24] = {0};
 };
