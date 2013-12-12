@@ -209,13 +209,13 @@ AfficherTop10()
                     
                     top10.push_back(monvect);
                     
-                    sort(top10.begin(), top10.end(), [](const std::vector< int >& a, const std::vector< int >& b){
+                    sort(top10.begin(), top10.end(), [=](const std::vector< int >& a, const std::vector< int >& b){
                         return a[1] > b[1]; } );
                 }
                 else if (nbHits>top10.back()[1]) {
                     top10.back()[0] = (int)it1->first;
                     top10.back()[1] = nbHits;
-                    sort(top10.begin(), top10.end(), [](const std::vector< int >& a, const std::vector< int >& b){
+                    sort(top10.begin(), top10.end(), [=](const std::vector< int >& a, const std::vector< int >& b){
                         return a[1] > b[1]; } );
                 }
                 
