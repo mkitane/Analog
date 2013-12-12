@@ -53,8 +53,14 @@ void Graph::ecrireGraph()
 {
     ofstream theFile;
     theFile.open(nomFichier);
-    theFile << digraph;
-    theFile.close();
+    if(theFile.is_open()) {
+    	theFile << digraph;
+    	theFile.close();
+    }
+    else {
+    	cerr << "Can't write dot file" << endl;
+    	exit(45);
+    }
 }//----- Fin de Méthode
 
 
