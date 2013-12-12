@@ -1,1 +1,1 @@
-./analog 20okxojs -g graph.dot court.log
+../../analog 20okxojs -g graph.dot court.log

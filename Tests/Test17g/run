@@ -1,2 +1,1 @@
-cd ../
-analog -g Tests/Test17g/court.dot Tests/Test17g/court.log
+../../analog -g court.dot court.log

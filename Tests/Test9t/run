@@ -1,2 +1,1 @@
-cd ../
-analog -t abc Tests/Test9t/court.log
+../../analog -t abc court.log

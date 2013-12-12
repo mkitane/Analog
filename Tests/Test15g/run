@@ -1,1 +1,1 @@
-./analog -g court.dogt court.log
+../../analog -g court.ddot court.log

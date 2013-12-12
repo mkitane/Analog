@@ -1,1 +1,1 @@
-./analog -g anonyme.dot anonyme.log
+../../analog -g anonyme.dot anonyme.log
